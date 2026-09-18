@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Last Light — City Siege</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,Segoe UI,system-ui,sans-serif;background:#10171b;color:#e9e8de;--gold:#dbbd85;--green:#8cb4a2;--muted:#9cacae;--line:#354348}*{box-sizing:border-box}body{margin:0}button,a,select{touch-action:manipulation}button,select{font:inherit;color:inherit;background:#233137;border:1px solid #45535a;border-radius:4px;padding:9px 12px;cursor:pointer}button:hover{background:#35434b;border-color:#95aca8}button:disabled{opacity:.38;cursor:default}button:focus-visible,a:focus-visible,canvas:focus-visible,select:focus-visible{outline:3px solid #f2cd88;outline-offset:3px}button.primary{background:var(--gold);border-color:var(--gold);color:#1d282b;font-weight:700}a{color:var(--gold)}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}header{border-bottom:1px solid var(--line);padding:17px 28px;display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:11px;letter-spacing:.14em;color:#b7c6c7}header a{letter-spacing:0;text-decoration:none}.brand{color:#e6d2a9;font-weight:700}.wrap{max-width:1550px;margin:auto;padding:22px 28px}.eyebrow{color:var(--gold);font-size:11px;letter-spacing:.19em;text-transform:uppercase}.home-hero{display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:center;padding:50px 0}.home-hero h1{font-size:clamp(44px,5vw,76px);letter-spacing:-.06em;font-weight:550;line-height:1.04;margin:16px 0 25px}.home-hero h1 span{color:var(--gold)}.lead{color:#b7c2c1;line-height:1.8;max-width:610px;font-size:16px}.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:23px}.tags span{border:1px solid var(--line);padding:6px 9px;font-size:11px;color:#b5c6c3}.city-card{position:relative;background:#1b262b;border:1px solid #3a494b;padding:24px;min-height:290px;overflow:hidden}.city-card svg{width:100%;height:260px;display:block}.map-stamp{font-size:11px;letter-spacing:.12em;color:#adbbb5;margin-top:12px}.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.mode{border:1px solid #3a474b;padding:24px;background:#182328}.mode h2{font-size:23px;letter-spacing:-.02em;margin:12px 0}.mode p{font-size:13px;line-height:1.7;color:#acbbbc;min-height:43px}.mode-actions{display:flex;gap:9px;flex-wrap:wrap}.difficulty{margin:24px 0;display:flex;gap:12px;align-items:center;color:#adbbba;font-size:13px}.difficulty select{padding:7px}.districts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:32px;padding-top:24px;gap:24px}.districts span{font-size:12px;color:var(--gold)}.districts h3{font-size:17px;margin:10px 0}.districts p{color:#a5b5b5;line-height:1.6;font-size:13px}.home-footer{border-top:1px solid var(--line);padding:20px 0;margin-top:26px;color:#96a8ab;font-size:12px;line-height:1.8}.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}.toolbar h2{font-size:19px;margin:0 auto 0 6px;letter-spacing:-.02em}.toolbar button{font-size:12px}.stats{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:12px;margin-bottom:17px}.stat{border-left:2px solid #475957;padding:0 12px}.stat small{display:block;color:#99adae;text-transform:uppercase;font-size:9px;letter-spacing:.14em;margin-bottom:5px}.stat strong{font-size:15px;font-weight:550}.stat:first-child{border-color:var(--gold)}.field-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;align-items:start}.field{position:relative}canvas{width:100%;display:block;aspect-ratio:1080/660;border:1px solid #526267;touch-action:none;background:#273137;border-radius:4px}.field-meta{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#acbcba;padding:10px 1px;line-height:1.7}.notice{border-left:2px solid var(--gold);background:#1b292e;padding:12px 14px;color:#d6d2bd;font-size:12px;line-height:1.6;min-height:43px}.forecast{margin-top:15px;border:1px solid #36484a;padding:16px;background:#172328}.forecast-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.forecast h3{margin:0;font-size:12px;letter-spacing:.1em}.forecast p{font-size:12px;line-height:1.6;color:#acbcbc;margin:10px 0}.lane-list{display:flex;gap:8px;flex-wrap:wrap}.lane-chip{font-size:11px;border:1px solid #52615d;padding:6px 8px;border-left:3px solid var(--gold)}.timeline{display:flex;gap:6px;margin-top:12px}.timeline span{flex:1;padding:7px;border-top:2px solid #c4a56e;background:#263236;color:#d0c4a6;font-size:10px}.side{background:#182329;border:1px solid #3a4a4e;padding:13px;border-radius:4px}.tabs{display:flex;gap:6px;margin-bottom:12px}.tabs button{font-size:11px;flex:1}.tabs button.active{background:#4d5849;border-color:#a8b790}.roster{display:grid;grid-template-columns:1fr 1fr;gap:6px}.unit{display:grid;grid-template-columns:22px 1fr;gap:5px;text-align:left;font-size:10px;padding:8px 6px;position:relative}.unit.active{border-color:#d6c58b;background:#35453e}.unit b{font-size:13px;color:#d4c49e}.unit small{display:block;font-size:9px;color:#aebfb9}.unit i{grid-column:1/3;height:3px;background:#31413a}.unit i span{display:block;background:#8fb697;height:100%}.details{border-top:1px solid #35474b;margin-top:15px;padding-top:13px;font-size:12px;line-height:1.65;color:#adbbbd;min-height:142px}.details strong{display:block;font-size:15px;color:#ede9d8;margin-bottom:5px}.details .special{color:#dec996;font-size:11px}.details button{width:100%;margin-top:9px;font-size:11px}.commands{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:14px}.commands button{padding:8px 5px;font-size:10px}.commands button.active{border-color:var(--gold);background:#534b36}.shop h3{font-size:11px;color:#c6cebd;text-transform:uppercase;letter-spacing:.1em;margin:18px 0 10px}.shop button{display:block;width:100%;text-align:left;margin:5px 0;font-size:11px;line-height:1.5}.shop button small{display:block;color:#adbcb6;font-size:10px}.shop p{font-size:11px;color:#b7bfb7;line-height:1.6}.save-note{font-size:10px;color:#97aaa5;line-height:1.6;margin-top:14px}.pause{position:absolute;top:16px;left:50%;transform:translateX(-50%);background:#19252eee;color:#eddbb4;border:1px solid #dbc690;padding:8px 16px;font-size:12px;pointer-events:none}.modal{position:fixed;inset:0;background:#0a1116e8;z-index:20;display:flex;align-items:center;justify-content:center;padding:24px}.dialog{width:min(850px,100%);max-height:90vh;overflow:auto;background:#1b292f;border:1px solid #697167;padding:32px;box-shadow:0 25px 100px #0008}.dialog h2{font-size:31px;letter-spacing:-.03em;margin:12px 0}.dialog p{font-size:13px;color:#bdc7c3;line-height:1.8}.reward-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:25px 0}.reward{padding:20px;text-align:left;min-height:130px}.reward strong{display:block;font-size:16px;color:#e4d2a6;margin-bottom:9px}.reward span{display:block;line-height:1.7;font-size:12px;color:#bdc7c2}.help-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.help-grid>div{border:1px solid #405354;padding:15px}.help-grid h3{font-size:14px;color:#dac79e}.help-grid p{font-size:12px;margin-bottom:0}kbd{border:1px solid #637171;padding:1px 4px;font:11px monospace;border-radius:3px;color:#e3dabf}.tip{font-size:11px;color:#abbdb5}.badge{color:var(--gold);font-size:10px;letter-spacing:.1em}.enemy-guide{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.enemy-guide span{font-size:10px;border:1px solid #49534c;padding:5px 8px}.dialog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+@media(max-width:1100px){.wrap{padding:17px}.field-grid{grid-template-columns:1fr 240px}.home-hero{gap:25px}.roster{grid-template-columns:1fr}.stats{gap:5px}.stat{padding-left:8px}.stat strong{font-size:13px}}@media(max-width:800px){.home-hero{grid-template-columns:1fr;padding:25px 0}.city-card{display:none}.field-grid{grid-template-columns:1fr}.roster{grid-template-columns:repeat(3,1fr)}.stats{grid-template-columns:repeat(3,1fr)}.mode-grid,.districts{grid-template-columns:1fr}.side{margin-top:5px}.help-grid{grid-template-columns:1fr}.reward-grid{grid-template-columns:1fr}.dialog{padding:20px}.toolbar h2{font-size:15px}header{padding:15px}.field-meta{display:block}.home-hero h1{font-size:48px}}
+</style></head><body>
+<header><span class="brand">LAST LIGHT / CITY SIEGE</span><span>TACTICAL SURVIVAL · v0.2</span><a href="index.html">All experiments ↗</a></header>
+<main class="wrap">
+<section id="home">
+ <div class="home-hero"><div><span class="eyebrow">The city is your defence</span><h1>Hold the streets.<br><span>Keep them alive.</span></h1><p class="lead">A handful of survivors. A city running out of time. Move your squad, turn wrecks into a front line, and make every specialist count.</p><div class="tags"><span>DIRECT UNIT CONTROL</span><span>TACTICAL PAUSE</span><span>CAMPAIGN + ENDLESS</span></div></div>
+ <div class="city-card"><span class="eyebrow">Mercer Junction / tactical overview</span><svg viewBox="0 0 500 260" aria-label="Diagram of two incoming roads meeting at a defended city junction" role="img"><rect width="500" height="260" fill="#253139"/><path d="M0 140H500M235 0V260" stroke="#475359" stroke-width="60"/><path d="M0 140H500M235 0V260" stroke="#99957b" stroke-width="2" stroke-dasharray="8 9"/><g fill="#5e655e" stroke="#7c8270"><rect x="15" y="15" width="150" height="73"/><rect x="18" y="190" width="145" height="50"/><rect x="320" y="15" width="160" height="68"/><rect x="328" y="204" width="152" height="43"/></g><g stroke="#d5ae71" stroke-width="5"><path d="M189 108V172M210 92H260"/></g><path d="M10 140H160M235 5V72" stroke="#e3b275" stroke-width="3" stroke-dasharray="7 7"/><g fill="#9ab9aa" stroke="#d0d8c0" stroke-width="2"><circle cx="268" cy="127" r="8"/><circle cx="272" cy="158" r="8"/><circle cx="310" cy="144" r="8"/><circle cx="354" cy="148" r="7"/></g><rect x="406" y="118" width="55" height="42" fill="#809387" stroke="#d3d0ac"/><text x="432" y="180" fill="#ded7bb" font-family="sans-serif" font-size="10" text-anchor="middle">SHELTER</text><text x="40" y="128" fill="#e3bd85" font-family="sans-serif" font-size="10">WEST AVENUE →</text></svg><div class="map-stamp">01 / ROADS · WRECKS · FIRING LANES</div></div></div>
+ <div class="mode-grid"><article class="mode"><span class="eyebrow">A journey through the city</span><h2>Evacuation campaign</h2><p>Three districts, nine assaults. Carry your survivors, supplies and specializations from the junction to the river terminal.</p><div class="mode-actions"><button class="primary" id="newCampaign">New campaign</button><button id="continueCampaign" hidden>Continue campaign</button></div></article><article class="mode"><span class="eyebrow">How long can you hold?</span><h2>Endless watch</h2><p>Growing swarms, shifting road threats, a new district every three assaults. Keep veterans alive and adapt your squad.</p><div class="mode-actions"><button class="primary" id="newEndless">New endless run</button><button id="continueEndless" hidden>Continue endless</button></div></article></div>
+ <div class="difficulty"><label for="difficulty">New run difficulty</label><select id="difficulty"><option value="standard">Standard</option><option value="relaxed">Relaxed · squad takes 25% less damage</option></select><span id="best"></span></div>
+ <div class="districts"><article><span>01 / LEARN THE LINE</span><h3>Mercer Junction</h3><p>Two streets and a community shelter. Protect the medic and build overlapping fields of fire.</p></article><article><span>02 / SPLIT THE SQUAD</span><h3>Saint Agnes</h3><p>Three approaches to the hospital. Fast enemies and toxins punish an unguarded specialist.</p></article><article><span>03 / THE LAST CROSSING</span><h3>River Terminal</h3><p>Two bridges and a northern access road. Hold long enough to get your people out.</p></article></div>
+ <div class="home-footer">Mouse + keyboard recommended. Click or drag to select; right-click to move or focus fire. <kbd>Space</kbd> pauses while you give orders.<br>Progress saves on this browser at preparation and reward checkpoints. An interrupted battle restarts from its preparation checkpoint. Single-player development build.</div>
+</section>
+<section id="play" hidden>
+ <div class="toolbar"><button id="homeBtn">← Command desk</button><h2 id="title"></h2><button id="helpBtn">Field manual</button><button id="pauseBtn">Pause [Space]</button><button id="speedBtn">1× speed</button><button class="primary" id="startBtn">Begin assault</button></div>
+ <div class="stats"><div class="stat"><small>Operation</small><strong id="phase"></strong></div><div class="stat"><small>Shelter integrity</small><strong id="integrity"></strong></div><div class="stat"><small>Supplies</small><strong id="supplies"></strong></div><div class="stat"><small>Contact</small><strong id="contacts"></strong></div><div class="stat"><small>Squad</small><strong id="squadCount"></strong></div></div>
+ <div class="field-grid"><div><div class="field"><canvas width="1080" height="660" tabindex="0" id="field" aria-label="City battlefield. Click or drag to select units; right-click a road to move; right-click an enemy to focus fire."></canvas><div id="pauseBanner" class="pause" hidden>PAUSED · Give orders, then resume</div></div><div class="field-meta"><span>Click / drag: select · Right click: move / target · <kbd>A</kbd> attack-move · <kbd>Q</kbd> ability · <kbd>Space</kbd> pause</span><span id="cursor">Select a unit</span></div><div id="notice" class="notice" aria-live="polite"></div><div id="forecast" class="forecast"></div></div>
+ <aside class="side"><div class="tabs"><button id="squadTab" class="active">Squad</button><button id="supplyTab">Supplies & training</button></div><div id="squadPanel"><div id="roster" class="roster"></div><div id="details" class="details"></div><div class="commands"><button id="allBtn">Select all</button><button id="moveBtn">Move order</button><button id="attackBtn">Attack-move [A]</button><button id="holdBtn">Hold [H]</button><button id="formationBtn">Formation: block</button><button id="abilityBtn">Ability [Q]</button></div></div><div id="shop" class="shop" hidden></div><div id="saveStatus" class="save-note">Checkpoint saved locally.</div></aside></div>
+</section>
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden><div id="dialog" class="dialog"></div></div>
+</main><script>
+/* Original unit-defence prototypes. No third-party game code or assets. */
+(function (root) {
+'use strict';
+const W=1080,H=660,CELL=30;
+const MODES={
+ depot:{title:'ZOMBIE / LAST LIGHT',short:'Last Light',theme:'zombie',blurb:'Hold a supply depot. Use cover, protect specialists, and survive six waves.',objective:'Protect the depot',color:'#e9b66c'},
+ convoy:{title:'ZOMBIE / DEAD ROAD',short:'Dead Road',theme:'zombie',blurb:'Escort a repair truck through six checkpoints. It moves only with a nearby escort and stops when surrounded.',objective:'Escort the truck',color:'#edbd67'},
+ rift:{title:'ALIEN / RIFT WARDENS',short:'Rift Wardens',theme:'alien',blurb:'Command an expedition against original alien creatures. Stand near the marked rift to seal it while holding off attacks.',objective:'Seal the marked rift',color:'#88c8f5'},
+ brood:{title:'ALIEN / THE LIVING FRONT',short:'The Living Front',theme:'brood',blurb:'Lead an original alien brood. Regenerate around your heart, harvest biomass, and grow new skirmishers against machines.',objective:'Protect the brood heart',color:'#c3a2f6'}
+};
+const ROLES={
+ rifle:{name:'Infantry',mark:'I',hp:125,damage:15,rate:.65,range:185,speed:91,color:'#b8d9f5',note:'Reliable at medium range. Can fire while moving at reduced damage.'},
+ medic:{name:'Medic',mark:'M',hp:100,damage:0,rate:.65,range:145,speed:94,color:'#7fe4b3',note:'Heals one wounded ally at a time. Cannot attack. Upgrade to an aura, then add poison cleansing.'},
+ flame:{name:'Flamethrower',mark:'F',hp:155,damage:9,rate:.25,range:115,speed:78,color:'#ffaa76',note:'Burns enemies in a short cone. Great against clusters; must get close.'},
+ grenade:{name:'Grenadier',mark:'G',hp:105,damage:38,rate:2.1,range:230,speed:79,color:'#e6d080',note:'Delayed blast damages clusters. Slow rate of fire; nearby targets take reduced damage.'},
+ sniper:{name:'Sniper',mark:'S',hp:85,damage:66,rate:2.1,range:330,speed:86,color:'#b3b7ff',note:'High long-range damage. A threat within 105m reduces all shots to 25% damage. Must stop to fire.'},
+ gunner:{name:'Gunner',mark:'H',hp:170,damage:12,rate:.26,range:210,speed:65,color:'#80cbd8',note:'Sustained fire slows targets. Damage drops while moving. Slow to reposition.'}
+};
+const BROOD_NAMES={rifle:['Skirmisher','K'],medic:['Mender','M'],flame:['Sporebreath','F'],grenade:['Seed lobber','G'],sniper:['Needlecaster','N'],gunner:['Shellguard','B']};
+const ENEMIES={
+ shambler:{hp:48,speed:35,damage:9,rate:1.0,range:22,r:10,label:'Shambler',mark:'Z'},
+ runner:{hp:35,speed:82,damage:7,rate:.75,range:20,r:8,label:'Runner',mark:'R'},
+ brute:{hp:185,speed:27,damage:22,rate:1.3,range:28,r:16,label:'Brute',mark:'B',armor:.22},
+ spitter:{hp:75,speed:38,damage:8,rate:2.2,range:180,r:11,label:'Spitter',mark:'P',poison:true},
+ caller:{hp:85,speed:30,damage:8,rate:1.2,range:23,r:12,label:'Caller',mark:'C'},
+ crawler:{hp:43,speed:75,damage:8,rate:.8,range:21,r:9,label:'Shardling',mark:'C'},
+ stalker:{hp:82,speed:67,damage:16,rate:1.0,range:22,r:12,label:'Phase hunter',mark:'H'},
+ shield:{hp:145,speed:31,damage:14,rate:1.2,range:130,r:14,label:'Shell bearer',mark:'A',armor:.5},
+ drone:{hp:58,speed:58,damage:9,rate:1.0,range:135,r:10,label:'Scout machine',mark:'D'},
+ walker:{hp:170,speed:30,damage:16,rate:1.1,range:140,r:15,label:'Siege walker',mark:'W',armor:.4},
+ boss:{hp:850,speed:24,damage:28,rate:1.4,range:35,r:25,label:'Siege beast',mark:'!',armor:.12}
+};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+const inside=(p,r,pad=0)=>p.x>r.x-pad&&p.x<r.x+r.w+pad&&p.y>r.y-pad&&p.y<r.y+r.h+pad;
+class Game {
+ constructor(mode='depot',seed=42){this.reset(mode,seed);}
+ reset(mode,seed){
+  this.mode=mode;this.config=MODES[mode];this.seed=seed>>>0;this.state='prep';this.paused=false;this.time=0;this.wave=0;this.maxWaves=6;this.waveTime=0;this.uid=1;this.selected=new Set();this.enemies=[];this.units=[];this.effects=[];this.hazards=[];this.pending=[];this.projectiles=[];this.kills=0;this.biomass=0;this.message='Position your squad, then begin wave 1.';this.eventLog=[];this.upgrades={aura:false,cleanse:false,scope:false,fire:false,cluster:false,brace:false,armor:false,regen:false};this.objective={id:'base',x:540,y:330,hp:1100,maxHp:1100,r:32};
+  this.obstacles=mode==='convoy'?[{x:260,y:100,w:120,h:130},{x:500,y:435,w:150,h:100},{x:720,y:100,w:90,h:130}]:mode==='rift'?[{x:180,y:190,w:90,h:160},{x:540,y:240,w:100,h:150},{x:780,y:460,w:100,h:80}]:[{x:240,y:150,w:150,h:70},{x:720,y:180,w:100,h:90},{x:270,y:460,w:120,h:70},{x:720,y:440,w:150,h:70}];
+  this.zones=[{x:420,y:240,w:90,h:180,type:'cover'},{x:570,y:410,w:110,h:95,type:'high'},{x:90,y:420,w:125,h:125,type:'slow'}];
+  this.rifts=[{x:420,y:110},{x:885,y:350},{x:455,y:560}];this.riftProgress=0;this.activeRift=0;
+  if(mode==='convoy'){this.objective.x=145;this.objective.y=330;this.checkpoint=280;this.zones=[{x:210,y:250,w:100,h:50,type:'cover'},{x:475,y:290,w:120,h:80,type:'slow'},{x:870,y:400,w:110,h:95,type:'high'}];}
+  if(mode==='rift'){this.objective.x=100;this.objective.y=550;this.objective.hp=800;this.objective.maxHp=800;}
+  this.buildGrid();
+  const roles=Object.keys(ROLES);roles.forEach((r,i)=>this.addUnit(r,this.mode==='convoy'?140+(i%3)*32:460+(i%3)*62,this.mode==='convoy'?260+Math.floor(i/3)*130:270+Math.floor(i/3)*105));
+  this.selectAll();this.offers=[];
+ }
+ random(){this.seed=(Math.imul(this.seed,1664525)+1013904223)>>>0;return this.seed/4294967296;}
+ choose(a){return a[Math.floor(this.random()*a.length)];}
+ log(s){this.message=s;this.eventLog.unshift(s);this.eventLog=this.eventLog.slice(0,6);}
+ addUnit(role,x,y){
+  const s=ROLES[role],bio=this.mode==='brood';let max=s.hp*(this.upgrades.armor?1.25:1);
+  if(bio&&role==='gunner')max*=1.4;
+  const u={...s,id:this.uid++,role,x,y,hp:max,maxHp:max,r:12,cool:0,poison:0,slow:0,order:null,path:[],repath:0,xp:0,rank:1,angle:0,moving:false,bio};
+  if(bio){[u.name,u.mark]=BROOD_NAMES[role];if(role==='rifle'){u.range=40;u.damage=26;u.speed=119;u.note='Fast melee attacker. Right-click an enemy to close the distance. Return to the heart to regenerate.';}if(role==='gunner'){u.range=85;u.damage=19;u.note='Durable short-range defender. Slows enemies and deals most damage while stationary.';}if(role==='medic')u.note='Heals allies. Can evolve group regeneration and purge toxins.';if(role==='flame')u.note='A short corrosive cone hits groups. Keep a shellguard in front.';}
+  const p=this.nearestFree({x,y});u.x=p.x;u.y=p.y;this.units.push(u);return u;
+ }
+ selectAll(){this.selected=new Set(this.units.filter(u=>u.hp>0).map(u=>u.id));}
+ selection(){return this.units.filter(u=>u.hp>0&&this.selected.has(u.id));}
+ buildGrid(){this.cols=W/CELL;this.rows=H/CELL;this.blocked=new Set();for(let y=0;y<this.rows;y++)for(let x=0;x<this.cols;x++)if(this.obstacles.some(r=>inside({x:x*CELL+15,y:y*CELL+15},r,12)))this.blocked.add(y*this.cols+x);}
+ nearestFree(p){let cx=clamp(Math.floor(p.x/CELL),0,this.cols-1),cy=clamp(Math.floor(p.y/CELL),0,this.rows-1);for(let n=0;n<15;n++)for(let dy=-n;dy<=n;dy++)for(let dx=-n;dx<=n;dx++){if(Math.abs(dx)!==n&&Math.abs(dy)!==n)continue;let x=cx+dx,y=cy+dy;if(x>=0&&x<this.cols&&y>=0&&y<this.rows&&!this.blocked.has(y*this.cols+x))return n===0?{x:clamp(p.x,15,W-15),y:clamp(p.y,15,H-15)}:{x:x*CELL+15,y:y*CELL+15};}return{x:540,y:330};}
+ findPath(a,b){
+  b=this.nearestFree(b);let sx=clamp(Math.floor(a.x/CELL),0,this.cols-1),sy=clamp(Math.floor(a.y/CELL),0,this.rows-1),gx=Math.floor(b.x/CELL),gy=Math.floor(b.y/CELL),start=sy*this.cols+sx,goal=gy*this.cols+gx;
+  if(start===goal)return[b];const open=[start],came=new Map(),cost=new Map([[start,0]]),closed=new Set();let iterations=0;
+  while(open.length&&iterations++<1200){open.sort((a,b)=>(cost.get(a)+Math.abs(a%this.cols-gx)+Math.abs(Math.floor(a/this.cols)-gy))-(cost.get(b)+Math.abs(b%this.cols-gx)+Math.abs(Math.floor(b/this.cols)-gy)));const c=open.shift();if(c===goal){const path=[b];let n=c;while(came.has(n)){path.unshift({x:(n%this.cols)*CELL+15,y:Math.floor(n/this.cols)*CELL+15});n=came.get(n);}return path;}closed.add(c);let x=c%this.cols,y=Math.floor(c/this.cols);for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){let nx=x+dx,ny=y+dy,n=ny*this.cols+nx;if(nx<0||ny<0||nx>=this.cols||ny>=this.rows||this.blocked.has(n)||closed.has(n))continue;const nc=cost.get(c)+1;if(!cost.has(n)||nc<cost.get(n)){came.set(n,c);cost.set(n,nc);if(!open.includes(n))open.push(n);}}}return[];
+ }
+ lineOfSight(a,b){return !this.obstacles.some(r=>{let lo=0,hi=1;for(const[origin,delta,min,max]of[[a.x,b.x-a.x,r.x,r.x+r.w],[a.y,b.y-a.y,r.y,r.y+r.h]]){if(Math.abs(delta)<1e-9){if(origin<min||origin>max)return false;}else{const t1=(min-origin)/delta,t2=(max-origin)/delta;lo=Math.max(lo,Math.min(t1,t2));hi=Math.min(hi,Math.max(t1,t2));if(lo>hi)return false;}}return true;});}
+ command(point,type='move',target=null){const list=this.selection(),n=list.length,cols=Math.ceil(Math.sqrt(n));list.forEach((u,i)=>{const p=target?{x:target.x,y:target.y}:this.nearestFree({x:point.x+(i%cols-(cols-1)/2)*29,y:point.y+(Math.floor(i/cols)-(Math.ceil(n/cols)-1)/2)*29});u.order={type,point:p,target:target?.id};u.path=this.findPath(u,p);u.repath=0;});if(n){this.effects.push({type:'order',x:point.x,y:point.y,t:.8,max:.8,color:type==='move'?'#f2f2e8':'#f5a278'});this.log(`${n} unit${n>1?'s':''}: ${type==='attack'?'focus target':type==='attackMove'?'advance and engage':'move'}.`);}}
+ hold(){for(const u of this.selection()){u.order=null;u.path=[];}this.log('Selected units hold position.');}
+ startWave(){if(this.state!=='prep')return;this.wave++;this.state='battle';this.paused=false;this.waveTime=0;this.pending=[];this.riftProgress=0;this.activeRift=(this.wave-1)%3;
+  if(this.mode==='convoy')this.checkpoint=Math.min(930,150+this.wave*130);
+  let pool=this.config.theme==='zombie'?['shambler','shambler','runner']:this.mode==='brood'?['drone','drone','crawler']:['crawler','crawler','stalker'];
+  if(this.wave>=2)pool.push(this.mode==='brood'?'walker':this.config.theme==='zombie'?'brute':'shield');if(this.wave>=3)pool.push('spitter');if(this.wave>=4&&this.config.theme==='zombie')pool.push('caller');
+  const count=10+this.wave*3;for(let i=0;i<count;i++){let p=this.spawnPoint(i);this.pending.push({at:2+Math.floor(i/5)*6,type:this.choose(pool),x:p.x,y:p.y});}
+  if(this.wave===3||this.wave===6){const p=this.spawnPoint(1);this.pending.push({at:12,type:'boss',x:p.x,y:p.y});}
+  const names=[...new Set(this.pending.map(p=>ENEMIES[p.type].label))];this.log(`Wave ${this.wave}: ${names.join(', ')}. ${this.mode==='rift'?'Seal the pulsing rift.':this.mode==='convoy'?'Stay near the truck to escort it.':'Protect your objective.'}`);
+ }
+ spawnPoint(i){if(this.mode==='convoy'){const x=clamp(this.objective.x+180+this.random()*200,40,1040);return{x,y:i%2?25:635};}if(this.mode==='rift'){const r=this.rifts[this.activeRift];return this.nearestFree({x:clamp(r.x+(this.random()-.5)*190,25,1055),y:clamp(r.y+(this.random()-.5)*190,25,635)});}const edge=Math.floor(this.random()*4);return edge===0?{x:25,y:50+this.random()*560}:edge===1?{x:1055,y:50+this.random()*560}:edge===2?{x:50+this.random()*980,y:25}:{x:50+this.random()*980,y:635};}
+ spawnEnemy(type,x,y){const s=ENEMIES[type],p=this.nearestFree({x,y}),scale=1+(this.wave-1)*.13;const e={...s,id:this.uid++,type,...p,hp:s.hp*scale,maxHp:s.hp*scale,cool:.5,poisonous:!!s.poison,poison:0,slow:0,burn:0,path:[],repath:0,summon:12,slam:8};if(this.mode==='brood'&&type==='boss')e.label='Harvest engine';this.enemies.push(e);return e;}
+ inZone(u,type){return this.zones.some(z=>z.type===type&&inside(u,z));}
+ damage(target,amount,source=null,kind='normal'){
+  if(target.hp<=0)return;let m=1;if(kind==='normal'&&target.armor)m*=1-target.armor;if(kind==='ranged'&&this.units.includes(target)&&this.inZone(target,'cover'))m*=.55;if(this.units.includes(target)&&this.upgrades.armor)m*=.9;target.hp-=amount*m;
+  if(target.hp<=0&&this.enemies.includes(target)){this.kills++;if(this.mode==='brood')this.biomass++;if(source&&source.role){source.xp++;if(source.xp>=source.rank*4){source.rank++;source.damage*=1.08;source.maxHp+=6;source.hp=Math.min(source.maxHp,source.hp+12);this.effects.push({type:'text',x:source.x,y:source.y-28,text:'RANK '+source.rank,t:1.4,max:1.4,color:'#f2da86'});}}}
+ }
+ move(u,dt){if(!u.path?.length){u.moving=false;return;}let p=u.path[0],d=dist(u,p);let speed=u.speed*(u.slow>0?.55:1)*(this.inZone(u,'slow')?.55:1);if(d<speed*dt+2){u.x=p.x;u.y=p.y;u.path.shift();}else{u.x+=(p.x-u.x)/d*speed*dt;u.y+=(p.y-u.y)/d*speed*dt;u.angle=Math.atan2(p.y-u.y,p.x-u.x);}u.moving=true;}
+ attack(u,e){
+  if(!e||u.cool>0)return;u.cool=u.rate;u.angle=Math.atan2(e.y-u.y,e.x-u.x);let dmg=u.damage*(u.moving?(u.role==='gunner'?.4:.75):1);
+  if(u.role==='sniper'){const threatened=this.enemies.some(v=>v.hp>0&&dist(u,v)<105);dmg*=threatened?.25:1;if(this.upgrades.scope&&!threatened)dmg*=1.35;}
+  if(u.role==='gunner'){e.slow=1.0;if(this.upgrades.brace&&!u.moving)dmg*=1.5;}
+  if(u.role==='grenade'){this.projectiles.push({x:u.x,y:u.y,tx:e.x,ty:e.y,t:.55,max:.55,damage:dmg*(dist(u,e)<85?.5:1),radius:this.upgrades.cluster?85:60,source:u});return;}
+  if(u.role==='flame'){const reach=u.range+(this.inZone(u,'high')?55:0);for(const v of this.enemies){if(v.hp<=0||dist(u,v)>reach||!this.lineOfSight(u,v))continue;let a=Math.atan2(v.y-u.y,v.x-u.x)-u.angle;a=Math.atan2(Math.sin(a),Math.cos(a));if(Math.abs(a)<.65){this.damage(v,dmg,u,'fire');if(this.upgrades.fire)v.burn=3;}}this.effects.push({type:'flame',x:u.x,y:u.y,angle:u.angle,r:reach,t:.2,max:.2,color:u.bio?'#b4a6ff':'#ffad69'});return;}
+  this.damage(e,dmg,u);this.effects.push({type:'shot',x:u.x,y:u.y,tx:e.x,ty:e.y,t:.12,max:.12,color:u.bio?'#c1a4fa':u.role==='sniper'?'#f5e8b1':'#a4dae9'});
+ }
+ heal(u,dt){if(u.cool>0)return;const allies=this.units.filter(v=>v.hp>0&&dist(u,v)<=u.range&&this.lineOfSight(u,v)&&(v.hp<v.maxHp||this.upgrades.cleanse&&v.poison>0));if(!allies.length)return;allies.sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp);const targets=this.upgrades.aura?allies:[allies[0]];for(const t of targets){t.hp=Math.min(t.maxHp,t.hp+(this.upgrades.aura?7:13));if(this.upgrades.cleanse)t.poison=0;this.effects.push({type:'shot',x:u.x,y:u.y,tx:t.x,ty:t.y,t:.25,max:.25,color:'#78e9b7'});}u.cool=u.rate;}
+ tick(dt){if(this.paused||this.state==='menu'||this.state==='reward'||this.state==='won'||this.state==='lost')return;dt=Math.min(dt,.1);this.time+=dt;this.effects.forEach(e=>e.t-=dt);this.effects=this.effects.filter(e=>e.t>0);
+  if(this.state==='battle'){this.waveTime+=dt;for(const p of this.pending.filter(p=>p.at<=this.waveTime))this.spawnEnemy(p.type,p.x,p.y);this.pending=this.pending.filter(p=>p.at>this.waveTime);}
+  for(const u of this.units){if(u.hp<=0)continue;u.cool-=dt;u.poison=Math.max(0,u.poison-dt);u.slow=Math.max(0,u.slow-dt);if(u.poison>0&&this.state==='battle')this.damage(u,2.5*dt,null,'poison');if(this.mode==='brood'&&dist(u,this.objective)<170)u.hp=Math.min(u.maxHp,u.hp+dt*(this.upgrades.regen?5:2));
+   let enemy=null,range=u.range+(this.inZone(u,'high')?55:0)+(u.role==='sniper'&&this.upgrades.scope?40:0);
+   if(u.order?.type==='attack'){enemy=this.enemies.find(e=>e.id===u.order.target&&e.hp>0);if(!enemy){u.order=null;u.path=[];}else if(dist(u,enemy)>range||!this.lineOfSight(u,enemy)){u.repath-=dt;if(u.repath<=0){u.path=this.findPath(u,enemy);u.repath=.7;}}}
+   if(!enemy||dist(u,enemy)>range||!this.lineOfSight(u,enemy))enemy=this.enemies.filter(e=>e.hp>0&&dist(u,e)<=range&&this.lineOfSight(u,e)).sort((a,b)=>dist(u,a)-dist(u,b))[0];
+   const shouldStop=enemy&&(u.order?.type==='attackMove'||u.order?.type==='attack');if(!shouldStop)this.move(u,dt);else u.moving=false;
+   if(!u.path.length&&u.order?.type!=='attack')u.order=null;
+   if(this.state==='battle'){if(u.role==='medic')this.heal(u,dt);else if(enemy&&!(u.role==='sniper'&&u.moving))this.attack(u,enemy);}
+  }
+  if(this.state!=='battle'){this.separate();return;}
+  for(const e of this.enemies){if(e.hp<=0)continue;e.cool-=dt;e.slow=Math.max(0,e.slow-dt);if(e.burn>0){e.burn-=dt;this.damage(e,8*dt,null,'fire');}const living=this.units.filter(u=>u.hp>0);let candidates=living;
+   if(e.type==='stalker')candidates=[...living].sort((a,b)=>(['sniper','medic'].includes(a.role)?0:1)-(['sniper','medic'].includes(b.role)?0:1));
+   let t=candidates.reduce((best,u)=>!best||dist(e,u)<dist(e,best)?u:best,null);
+   if(e.type==='stalker'){let specialist=candidates.find(u=>['sniper','medic'].includes(u.role)&&dist(e,u)<350);if(specialist)t=specialist;}
+   if(this.mode!=='rift'&&(!t||dist(e,this.objective)<dist(e,t)*.8))t=this.objective;
+   if(!t)continue;
+   if(dist(e,t)>e.range+t.r||!this.lineOfSight(e,t)){e.repath-=dt;if(e.repath<=0){e.path=this.findPath(e,t);e.repath=.85+this.random()*.4;}this.move(e,dt);}else{e.path=[];if(e.cool<=0){e.cool=e.rate;this.damage(t,e.damage*(1+this.wave*.055),null,e.range>60?'ranged':'normal');if(e.poisonous&&t.id!=='base')t.poison=6;this.effects.push({type:'shot',x:e.x,y:e.y,tx:t.x,ty:t.y,t:.17,max:.17,color:e.poisonous?'#c59af0':'#eb826d'});}}
+   if(e.type==='caller'){e.summon-=dt;if(e.summon<=0&&this.enemies.length<70){e.summon=14;this.spawnEnemy('runner',e.x+20,e.y+20);this.log('A caller brought more runners.');}}
+   if(e.type==='boss'){e.slam-=dt;if(e.slam<=0){e.slam=9;this.hazards.push({x:t.x,y:t.y,r:80,t:1.8,max:1.8,done:false});}}
+  }
+  for(const p of this.projectiles){p.t-=dt;if(p.t<=0){for(const e of this.enemies)if(e.hp>0&&Math.hypot(e.x-p.tx,e.y-p.ty)<p.radius)this.damage(e,p.damage,p.source,'blast');this.effects.push({type:'blast',x:p.tx,y:p.ty,r:p.radius,t:.4,max:.4,color:'#eabd80'});}}this.projectiles=this.projectiles.filter(p=>p.t>0);
+  for(const z of this.hazards){z.t-=dt;if(z.t<=0&&!z.done){z.done=true;for(const u of (this.mode==='rift'?this.units:[...this.units,this.objective]))if(dist(z,u)<z.r)this.damage(u,65,null,'blast');this.effects.push({type:'blast',x:z.x,y:z.y,r:z.r,t:.5,max:.5,color:'#ef796f'});}}this.hazards=this.hazards.filter(z=>z.t>0);
+  this.units=this.units.filter(u=>u.hp>0);this.enemies=this.enemies.filter(e=>e.hp>0);for(const id of this.selected)if(!this.units.some(u=>u.id===id))this.selected.delete(id);this.separate();
+  if((this.mode!=='rift'&&this.objective.hp<=0)||!this.units.length){this.state='lost';this.log(this.objective.hp<=0?'Your objective was destroyed.':'Your squad was lost.');return;}
+  if(this.mode==='convoy'){const escort=this.units.some(u=>dist(u,this.objective)<150),blocked=this.enemies.some(e=>dist(e,this.objective)<100);if(escort&&!blocked)this.objective.x=Math.min(this.checkpoint,this.objective.x+25*dt);}
+  if(this.mode==='rift'){let r=this.rifts[this.activeRift];if(this.units.some(u=>dist(u,r)<80)&&!this.enemies.some(e=>dist(e,r)<90))this.riftProgress=Math.min(8,this.riftProgress+dt);}
+  if(!this.pending.length&&!this.enemies.length){let ready=this.mode==='convoy'?this.objective.x>=this.checkpoint:this.mode==='rift'?this.riftProgress>=8:true;if(ready)this.completeWave();else this.message=this.mode==='convoy'?'Area clear. Move a unit near the truck to finish the escort.':'Area clear. Move a unit into the marked rift circle to seal it.';}
+ }
+ separate(){const bodies=[...this.units,...this.enemies];for(let i=0;i<bodies.length;i++)for(let j=i+1;j<bodies.length;j++){const a=bodies[i],b=bodies[j],d=dist(a,b),min=(a.r+b.r)*.7;if(d<min){const dx=d?(a.x-b.x)/d:1,dy=d?(a.y-b.y)/d:0,k=(min-d)*.23;for(const[u,s]of[[a,1],[b,-1]]){const p={x:clamp(u.x+dx*k*s,15,W-15),y:clamp(u.y+dy*k*s,15,H-15)};if(!this.obstacles.some(r=>inside(p,r,11))){u.x=p.x;u.y=p.y;}}}}}
+ completeWave(){this.hazards=[];this.projectiles=[];if(this.wave>=this.maxWaves){this.state='won';this.log('All six encounters survived. Your force made it.');return;}this.state='reward';this.offers=this.makeOffers();this.log('Choose one upgrade or supply package. Survivors keep their ranks.');}
+ makeOffers(){let out=[];if(!this.upgrades.aura)out.push({id:'aura',title:this.mode==='brood'?'Shared regeneration':'Medic: healing aura',desc:'Medics heal every nearby ally for 7 per pulse, instead of one for 13.'});else if(!this.upgrades.cleanse)out.push({id:'cleanse',title:'Medic: toxin cleansing',desc:'Every healing pulse also removes poison from its recipients.'});else out.push({id:'support',title:'Medic reinforcement',desc:'Recruit a new medic with all your existing upgrades.'});
+  const tactical=[{id:'scope',title:'Sniper: stabilised scope',desc:'+35% damage when safe and +40 range. Close threats still suppress shots.'},{id:'fire',title:'Flamer: lingering burn',desc:'Cone attacks ignite enemies for 8 damage per second for 3 seconds.'},{id:'cluster',title:'Grenadier: wider blasts',desc:'Increase explosion radius from 60 to 85.'},{id:'brace',title:'Gunner: braced fire',desc:'+50% damage while stationary. Keep a screen in front.'},{id:'armor',title:'Squad: reinforced armour',desc:'+25% maximum health and 10% less incoming damage.'}].filter(x=>!this.upgrades[x.id]);
+  if(this.mode==='brood'&&!this.upgrades.regen)tactical.push({id:'regen',title:'Heart: rapid regeneration',desc:'Allies near the heart regenerate 5 health per second instead of 2.'});
+  if(tactical.length)out.push(this.choose(tactical));else out.push({id:'veterans',title:'Veteran training',desc:'All living units gain 15% damage and 15 maximum health.'});
+  const role=this.choose(['rifle','flame','grenade','sniper','gunner']);out.push({id:'recruit:'+role,title:'Recruit: '+(this.mode==='brood'?BROOD_NAMES[role][0]:ROLES[role].name),desc:'Add a permanent unit. New recruits inherit your squad upgrades.'});out.push({id:'repair',title:'Emergency recovery',desc:this.mode==='rift'?'Heal the squad by 60% and cure poison.':'Heal the squad by 60%, cure poison, and restore 300 objective health.'});if(this.mode==='brood')out.forEach(o=>{o.title=o.title.replace('Sniper:','Needlecaster:').replace('Flamer:','Sporebreath:').replace('Grenadier:','Seed lobber:').replace('Gunner:','Shellguard:').replace('Medic:','Mender:');});return out;
+ }
+ applyUpgrade(id){if(this.state!=='reward'||!this.offers.some(o=>o.id===id))return false;
+  if(id==='repair'){this.units.forEach(u=>{u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.6);u.poison=0;});this.objective.hp=Math.min(this.objective.maxHp,this.objective.hp+300);}
+  else if(id.startsWith('recruit:')||id==='support'){this.addUnit(id==='support'?'medic':id.split(':')[1],this.objective.x+48,this.objective.y);}
+  else if(id==='veterans'){this.units.forEach(u=>{u.damage*=1.15;u.maxHp+=15;u.hp+=15;});}
+  else{this.upgrades[id]=true;if(id==='armor')this.units.forEach(u=>{u.maxHp*=1.25;u.hp=Math.min(u.maxHp,u.hp*1.25);});}
+  this.state='prep';this.units.forEach(u=>{u.order=null;u.path=[];});this.log('Upgrade applied. Reposition your units, then start the next wave.');return true;
+ }
+ grow(){if(this.mode!=='brood'||this.biomass<8||!['battle','prep'].includes(this.state)||this.units.length>=18)return false;this.biomass-=8;this.addUnit('rifle',this.objective.x+40,this.objective.y+40);this.log('Eight biomass became a new skirmisher.');return true;}
+}
+const api={Game,MODES,ROLES,ENEMIES,BROOD_NAMES,W,H,dist};if(typeof module!=='undefined')module.exports=api;root.Defense=api;
+})(typeof window!=='undefined'?window:globalThis);
+
+</script><script>
+/* City Siege: original tactical simulation. No network or DOM dependency. */
+(function(root){
+'use strict';
+const D=typeof module!=='undefined'?require('./engine.js'):root.Defense;
+const {Game,ROLES,W,H,dist}=D;
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const copy=x=>JSON.parse(JSON.stringify(x));
+const TYPES={
+ walker:{label:'Drifter',mark:'D',hp:82,speed:27,damage:7,rate:1.2,r:9,range:18,color:'#a5aa70',tip:'Slow crowd. Use a choke and area damage.'},
+ runner:{label:'Sprinter',mark:'R',hp:62,speed:58,damage:8,rate:.9,r:8,range:18,color:'#e9ba72',tip:'Fast and fragile. Suppress it before it reaches support units.'},
+ brute:{label:'Breaker',mark:'B',hp:330,speed:21,damage:24,rate:1.6,r:17,range:24,armor:.55,color:'#bc8268',tip:'Armour and high barricade damage. Snipers or armour-breaking shells.'},
+ spitter:{label:'Blight carrier',mark:'P',hp:140,speed:25,damage:8,rate:2.8,r:11,range:170,color:'#b39cd6',tip:'Ranged toxin. Use vehicle cover, a sniper, or a trained medic.'},
+ screamer:{label:'Howler',mark:'H',hp:150,speed:23,damage:5,rate:1.4,r:11,range:18,color:'#dc91aa',tip:'Nearby infected move faster. Focus it to remove the aura.'},
+ boss:{label:'The Wrecker',mark:'!',hp:1550,speed:18,damage:35,rate:1.5,r:25,range:32,armor:.28,color:'#e57e68',tip:'Breaks roadblocks. Its ground strike is announced: move out of the circle.'}
+};
+const SPECS={
+ rifle:[['bulwark','Frontline training','30% less damage while holding still.'],['mobile','Running fire','Full weapon damage while moving; +15 movement speed.']],
+ medic:[['aura','Field hospital','Heal every nearby ally for 6 per pulse instead of one for 16.'],['triage','Trauma specialist','Heal one ally for 30; emergency treatment restores 65.']],
+ flame:[['burn','Incendiary mixture','Hits burn for 6 damage per second for 4 seconds.'],['reach','Pressure nozzle','Extend the cone by 45; keep crowds at a safer distance.']],
+ grenade:[['cluster','Fragmentation','Explosion radius grows from 58 to 88.'],['shatter','Breach shells','Blasts remove enemy armour for 5 seconds.']],
+ sniper:[['pierce','Hard target','Shots ignore armour and prioritize armoured targets.'],['execute','Finisher','Double damage to targets below 35% health.']],
+ gunner:[['focus','Sustained focus','Consecutive shots on one target build up to +60% damage.'],['suppress','Sweeping fire','Shots also slow enemies within 45 of the target.']],
+ engineer:[['weld','Fast weld','Repairs restore 14 health per second instead of 7.'],['remote','Repair drone','Repair radius grows from 115 to 195.']]
+};
+const ABILITIES={rifle:['Rally','Nearby allies take half damage for 7 seconds.',30],medic:['Emergency treatment','Restore 40 health to nearby allies; toxin training also cures poison.',28],flame:['Firebreak','Burn the nearest enemy area for 7 seconds.',28],grenade:['Concussion','Damage and stun a nearby group for 3 seconds.',26],sniper:['Priority shot','A powerful shot at the toughest visible enemy.',24],gunner:['Pin them down','Slow all visible enemies in range for 5 seconds.',28],engineer:['Emergency patch','Restore 150 health to a nearby damaged roadblock.',30]};
+const BUILD=(x,y,w,h,label)=>({x,y,w,h,label,kind:'building'});
+const ROAD=(x,y,w,h)=>({x,y,w,h});
+const GATE=(id,x,y,vertical,name)=>({id,x,y,vertical,name,r:27,hp:440,maxHp:440});
+const ROUTE=(id,name,color,points,gate)=>({id,name,color,points:points.map(([x,y])=>({x,y})),gate});
+const MAPS=[
+ {name:'Mercer Junction',subtitle:'Keep the community shelter alive.',story:'The first evacuation convoy never arrived. Hold the junction while the shelter gathers fuel for a move across the city.',
+ base:{x:825,y:330},roads:[ROAD(0,255,1080,150),ROAD(450,0,150,660)],
+ buildings:[BUILD(30,25,350,175,'APARTMENTS'),BUILD(35,455,340,180,'GROCERY'),BUILD(670,25,375,170,'WORKSHOPS'),BUILD(705,470,335,165,'TENEMENTS')],
+ cars:[{x:650,y:273,w:70,h:25},{x:610,y:382,w:62,h:25},{x:482,y:420,w:25,h:65}],
+ gates:[GATE('west',420,330,true,'West roadblock'),GATE('north',525,245,false,'North roadblock')],
+ routes:[ROUTE('west','West Avenue','#e5ac70',[[20,330],[240,330],[420,330],[610,330],[825,330]],'west'),ROUTE('north','Station Road','#8ebac9',[[525,20],[525,130],[525,245],[525,330],[825,330]],'north')],
+ positions:[[594,314],[735,365],[546,372],[670,360],[737,309],[580,344]],
+ caches:[{x:300,y:413,name:'Grocery crates',value:25},{x:633,y:110,name:'Workshop stock',value:30}],
+ sequence:[['west'],['north'],['west','north']]},
+ {name:'Saint Agnes',subtitle:'Defend the hospital evacuation point.',story:'The hospital still has medicine. Three streets converge here. Split the front line and keep the medical team between both groups.',
+ base:{x:540,y:535},roads:[ROAD(0,260,1080,140),ROAD(460,0,160,660)],
+ buildings:[BUILD(25,30,355,170,'PHARMACY'),BUILD(705,35,345,160,'HOTEL'),BUILD(35,465,340,170,'RESIDENCES'),BUILD(725,470,320,165,'ST AGNES')],
+ cars:[{x:460,y:434,w:28,h:66},{x:590,y:442,w:28,h:66},{x:490,y:366,w:62,h:25}],
+ gates:[GATE('west',410,330,true,'Market roadblock'),GATE('east',680,330,true,'Hotel roadblock'),GATE('north',540,225,false,'North roadblock')],
+ routes:[ROUTE('west','Market Street','#e5ac70',[[20,330],[240,330],[410,330],[540,330],[540,535]],'west'),ROUTE('east','Hotel Approach','#8ebac9',[[1060,330],[830,330],[680,330],[540,330],[540,535]],'east'),ROUTE('north','Hospital Avenue','#ce9da8',[[540,20],[540,110],[540,225],[540,330],[540,535]],'north')],
+ positions:[[470,357],[540,458],[615,360],[505,433],[565,470],[540,388]],
+ caches:[{x:405,y:120,name:'Medical stock',value:35},{x:870,y:430,name:'Abandoned transport',value:35}],
+ sequence:[['west','east'],['north','east'],['west','north','east']]},
+ {name:'River Terminal',subtitle:'Hold the crossings for the final evacuation.',story:'The last working boats are loading at the terminal. The bridges funnel the swarm, but the northern access road is still open.',
+ base:{x:855,y:345},roads:[ROAD(0,170,750,110),ROAD(0,410,750,115),ROAD(705,270,250,150),ROAD(750,0,125,660)],
+ buildings:[BUILD(30,20,290,100,'DEPOT'),BUILD(30,305,260,60,'STORAGE'),BUILD(30,570,290,65,'GARAGES'),BUILD(940,20,110,220,'SILOS'),BUILD(940,480,110,155,'DOCKS'),{x:375,y:0,w:195,h:150,kind:'water',label:'RIVER'},{x:375,y:300,w:195,h:90,kind:'water',label:'RIVER'},{x:375,y:545,w:195,h:115,kind:'water',label:'RIVER'}],
+ cars:[{x:680,y:276,w:65,h:25},{x:681,y:397,w:68,h:25},{x:843,y:205,w:25,h:65}],
+ gates:[GATE('bridge1',595,225,true,'North bridge barrier'),GATE('bridge2',595,465,true,'South bridge barrier'),GATE('north',810,255,false,'Terminal roadblock')],
+ routes:[ROUTE('bridge1','North Bridge','#e5ac70',[[20,225],[330,225],[595,225],[810,225],[810,345],[855,345]],'bridge1'),ROUTE('bridge2','South Bridge','#8ebac9',[[20,465],[330,465],[595,465],[810,465],[810,345],[855,345]],'bridge2'),ROUTE('north','Terminal Road','#ce9da8',[[810,20],[810,130],[810,255],[810,345],[855,345]],'north')],
+ positions:[[734,324],[840,395],[713,416],[802,412],[865,345],[715,274]],
+ caches:[{x:645,y:105,name:'Dock fuel',value:40},{x:670,y:555,name:'Emergency stores',value:40}],
+ sequence:[['bridge1','bridge2'],['bridge2','north'],['bridge1','bridge2','north']]}
+];
+class CityGame extends Game{
+ constructor(mode='campaign',seed=4271,difficulty='standard'){
+  super('depot',seed);this.runMode=mode;this.difficulty=difficulty;this.mode='city';this.supplies=90;this.totalCleared=0;this.district=0;this.localWave=0;this.upgradeRevision=0;this.signal=0;this.dead=0;this.formation='block';this.fields=[];this.feed=[];this.recovery=0;
+  this.units=[];Object.keys(ROLES).forEach((r,i)=>this.recruitUnit(r,540+i*25,330));this.loadDistrict(0);this.selectAll();
+ }
+ recruitUnit(role,x,y){
+  let stats=role==='engineer'?{name:'Engineer',mark:'E',hp:120,damage:8,rate:1,range:155,speed:84,color:'#efc780',note:'Automatically repairs a nearby roadblock, slowly consuming supplies.'}:ROLES[role];
+  const u={...stats,id:this.uid++,role,x,y,r:11,maxHp:stats.hp*1.45,hp:stats.hp*1.45,cool:0,poison:0,slow:0,order:null,path:[],repath:0,xp:0,rank:1,angle:0,moving:false,skill:null,cleanse:false,ability:0,guard:0,aim:0,focusId:0,streak:0,repairClock:0};
+  if(role==='medic')u.range=160;
+  if(role==='sniper')u.note='Long-range specialist. Must stand still to aim. An enemy within 95 reduces shot damage to 25%; protect the firing lane.';
+  this.units.push(u);return u;
+ }
+ loadDistrict(n){
+  this.district=n%MAPS.length;this.map=copy(MAPS[this.district]);this.obstacles=[...this.map.buildings,...this.map.cars.map(c=>({...c,kind:'car'}))];this.zones=[];this.buildGrid();this.gates=this.map.gates;this.routes=this.map.routes;
+  this.objective={id:'base',...this.map.base,r:32,hp:1250,maxHp:1250};this.caches=this.map.caches.map((c,i)=>({...c,id:'cache'+i,progress:0,collected:false}));this.enemies=[];this.pending=[];this.fields=[];this.hazards=[];this.projectiles=[];this.effects=[];this.localWave=0;this.state='prep';this.paused=false;
+  this.units.forEach((u,i)=>{const p=this.map.positions[i%this.map.positions.length];Object.assign(u,this.nearestFree({x:p[0]+Math.floor(i/6)*24,y:p[1]}),{path:[],order:null,poison:0,ability:0});});this.preview=this.forecast();this.log(this.map.story);this.signal++;
+ }
+ log(s){this.message=s;if(this.feed){this.feed.unshift(s);this.feed=this.feed.slice(0,5);}}
+ forecast(){
+  const number=this.totalCleared+1;
+  const active=this.map.sequence[this.localWave%3];
+  const types=['walker'];if(number>=2)types.push('runner');if(number>=3)types.push('brute');if(number>=4)types.push('spitter');if(number>=5)types.push('screamer');
+  const count=Math.min(105,16+number*4+(this.runMode==='endless'?Math.floor(number/3)*3:0));
+  return{number,active,types,count,boss:number%3===0,groups:[8,27,48],description:number===1?'A slow advance from the west. Build a firing line behind the wrecks.':number%3===0?'Heavy contact confirmed. Keep an escape path for the boss strike.':number>=4?'Support infected detected. Protect the medic and prioritize ranged threats.':'Fast infected are mixed into the crowd. Keep a screen in front of your sniper.'};
+ }
+ startWave(){
+  if(this.state!=='prep')return false;const p=this.preview;this.wave=p.number;this.localWave++;this.waveTime=0;this.paused=false;this.state='battle';this.pending=[];
+  for(let i=0;i<p.count;i++){
+   const group=Math.floor(i/Math.ceil(p.count/3)),lane=p.active[i%p.active.length];let type='walker';
+   if(p.types.includes('runner')&&i%5===2)type='runner';if(p.types.includes('brute')&&i%9===7)type='brute';if(p.types.includes('spitter')&&i%11===9)type='spitter';if(p.types.includes('screamer')&&i%15===14)type='screamer';
+   this.pending.push({at:p.groups[Math.min(group,2)]+(i%Math.ceil(p.count/3))*.8,type,lane});
+  }
+  if(p.boss)this.pending.push({at:43,type:'boss',lane:p.active[0]});
+  this.log('Assault '+this.wave+'. Incoming: '+p.active.map(id=>this.routes.find(r=>r.id===id).name).join(' + ')+'.');this.signal++;return true;
+ }
+ spawn(type,lane){
+  const r=this.routes.find(r=>r.id===lane),s=TYPES[type],scale=1+this.totalCleared*.075+(this.runMode==='endless'?Math.max(0,this.totalCleared-8)*.07:0),offset=(this.random()-.5)*66;
+  const first=r.points[0],next=r.points[1],horizontal=Math.abs(next.x-first.x)>Math.abs(next.y-first.y),p=this.nearestFree({x:first.x+(horizontal?0:offset),y:first.y+(horizontal?offset:0)});
+  const e={...s,...p,id:this.uid++,type,lane,node:1,laneOffset:offset,hp:s.hp*scale,maxHp:s.hp*scale,cool:1,path:[],repath:0,slow:0,burn:0,stun:0,shatter:0,slam:11,angle:0};this.enemies.push(e);return e;
+ }
+ command(point,type='move',target=null){
+  if(!['prep','battle'].includes(this.state))return;const list=this.selection(),n=list.length,cols=this.formation==='line'?n:Math.ceil(Math.sqrt(n));
+  list.forEach((u,i)=>{let p=this.nearestFree({x:point.x+(i%cols-(cols-1)/2)*32,y:point.y+(Math.floor(i/cols)-(Math.ceil(n/cols)-1)/2)*32});u.order={type,point:p,target:target?.id};u.path=this.findPath(u,target||p);u.repath=0;u.aim=0;});
+  if(n)this.effects.push({type:'order',x:point.x,y:point.y,t:1,max:1,color:'#e0c697'});
+ }
+ cover(u){return this.map.cars.some(c=>u.x>c.x-42&&u.x<c.x+c.w+42&&u.y>c.y-42&&u.y<c.y+c.h+42);}
+ damage(t,amount,source=null,kind='normal'){
+  if(t.hp<=0)return;let mult=1;
+  if(t.role){if(t.guard>0)mult*=.5;if(t.skill==='bulwark'&&!t.moving)mult*=.7;if(kind==='ranged'&&this.cover(t))mult*=.5;if(this.difficulty==='relaxed')mult*=.75;}
+  else if(t.type&&kind!=='pierce'&&kind!=='fire'&&t.shatter<=0)mult*=1-(t.armor||0);
+  if(this.gates.includes(t)&&source?.type==='brute')mult*=1.65;
+  t.hp-=amount*mult;
+  if(t.hp<=0){
+   if(t.type){this.kills++;if(source?.role){source.xp++;if(source.xp>=source.rank*7){source.rank++;source.damage*=1.06;source.maxHp+=8;source.hp=Math.min(source.maxHp,source.hp+20);this.fxText(source,'VETERAN '+source.rank,'#dcca89');}}}
+   else if(this.gates.includes(t)){this.log(t.name+' has fallen. Fall back or cover the breach.');this.fxText(t,'BREACH','#ef8c77');}
+   else if(t.role){this.dead++;this.log(t.name+' lost. Remaining survivors: '+this.units.filter(u=>u.hp>0).length+'.');}
+  }
+ }
+ fxText(p,text,color){this.effects.push({type:'text',...{x:p.x,y:p.y},text,color,t:1.5,max:1.5});}
+ chooseTarget(u){
+  const range=u.range+(u.skill==='reach'?45:0),list=this.enemies.filter(e=>e.hp>0&&dist(u,e)<=range&&this.lineOfSight(u,e));
+  const focus=u.order?.type==='attack'?list.find(e=>e.id===u.order.target):null;if(focus)return focus;
+  list.sort((a,b)=>u.role==='sniper'?((b.type==='spitter'||b.type==='screamer'?3:b.armor?2:0)-(a.type==='spitter'||a.type==='screamer'?3:a.armor?2:0))||dist(u,a)-dist(u,b):dist(u,a)-dist(u,b));return list[0];
+ }
+ attack(u,e){
+  if(!e||u.cool>0||u.role==='medic')return;if(u.role==='sniper'&&(u.moving||u.aim<.6))return;
+  u.cool=u.rate;u.angle=Math.atan2(e.y-u.y,e.x-u.x);let damage=u.damage*(u.moving?(u.skill==='mobile'?1:u.role==='gunner'?.4:.7):1);
+  if(u.role==='sniper'){if(this.enemies.some(v=>v.hp>0&&dist(u,v)<95))damage*=.25;if(u.skill==='execute'&&e.hp/e.maxHp<.35)damage*=2;}
+  if(u.role==='gunner'){e.slow=Math.max(e.slow,1.1);u.streak=e.id===u.focusId?Math.min(12,u.streak+1):0;u.focusId=e.id;if(u.skill==='focus'&&!u.moving)damage*=1+u.streak*.05;if(u.skill==='suppress')this.enemies.filter(v=>dist(v,e)<45).forEach(v=>v.slow=1.2);}
+  if(u.role==='grenade'){this.projectiles.push({x:u.x,y:u.y,tx:e.x,ty:e.y,t:.7,max:.7,damage:damage*(dist(u,e)<80?.4:1),radius:u.skill==='cluster'?88:58,source:u,shatter:u.skill==='shatter'});return;}
+  if(u.role==='flame'){
+   this.enemies.forEach(v=>{let a=Math.atan2(v.y-u.y,v.x-u.x)-u.angle;if(v.hp>0&&dist(u,v)<=u.range+(u.skill==='reach'?45:0)&&Math.abs(Math.atan2(Math.sin(a),Math.cos(a)))<.62&&this.lineOfSight(u,v)){this.damage(v,damage,u,'fire');if(u.skill==='burn')v.burn=4;}});
+   this.effects.push({type:'flame',x:u.x,y:u.y,angle:u.angle,r:u.range+(u.skill==='reach'?45:0),t:.2,max:.2});return;
+  }
+  this.damage(e,damage,u,u.skill==='pierce'?'pierce':'normal');this.effects.push({type:'shot',x:u.x,y:u.y,tx:e.x,ty:e.y,t:.12,max:.12,color:u.role==='sniper'?'#f4e0aa':'#aac9cb'});
+ }
+ heal(u){
+  if(u.cool>0)return;const list=this.units.filter(v=>v.hp>0&&dist(u,v)<u.range&&this.lineOfSight(u,v)&&(v.hp<v.maxHp||u.cleanse&&v.poison>0)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp);if(!list.length)return;
+  for(const v of u.skill==='aura'?list:[list[0]]){v.hp=Math.min(v.maxHp,v.hp+(u.skill==='aura'?6:u.skill==='triage'?30:16));if(u.cleanse)v.poison=0;this.effects.push({type:'shot',x:u.x,y:u.y,tx:v.x,ty:v.y,t:.25,max:.25,color:'#85bf9a'});}u.cool=1.1;
+ }
+ ability(id){
+  const u=this.units.find(x=>x.id===id);if(!u||u.ability>0||this.state!=='battle')return false;
+  const enemies=this.enemies.filter(e=>e.hp>0&&dist(e,u)<u.range+30&&this.lineOfSight(u,e)).sort((a,b)=>b.maxHp-a.maxHp),target=enemies[0];
+  if(['flame','grenade','sniper','gunner'].includes(u.role)&&!target){this.log('No visible enemy within ability range.');return false;}
+  if(u.role==='rifle'){this.units.filter(v=>dist(v,u)<155).forEach(v=>v.guard=7);this.effects.push({type:'pulse',x:u.x,y:u.y,r:155,t:.7,max:.7,color:'#e3d494'});}
+  if(u.role==='medic'){this.units.filter(v=>dist(v,u)<170).forEach(v=>{v.hp=Math.min(v.maxHp,v.hp+(u.skill==='triage'?65:40));if(u.cleanse)v.poison=0;});this.effects.push({type:'pulse',x:u.x,y:u.y,r:170,t:.7,max:.7,color:'#85d2ac'});}
+  if(u.role==='flame')this.fields.push({x:target.x,y:target.y,r:68,t:7,max:7,source:u});
+  if(u.role==='grenade'){this.enemies.filter(e=>dist(e,target)<85).forEach(e=>{e.stun=3;this.damage(e,35,u,'blast');});this.effects.push({type:'pulse',x:target.x,y:target.y,r:85,t:.6,max:.6,color:'#e4cb9c'});}
+  if(u.role==='sniper'){this.damage(target,u.damage*2.7,u,'pierce');this.effects.push({type:'shot',x:u.x,y:u.y,tx:target.x,ty:target.y,t:.5,max:.5,color:'#fff0b0'});}
+  if(u.role==='gunner')enemies.forEach(e=>e.slow=5);
+  if(u.role==='engineer'){const gate=this.gates.filter(g=>g.hp>0&&g.hp<g.maxHp&&dist(g,u)<195).sort((a,b)=>a.hp-b.hp)[0];if(!gate){this.log('Move the engineer within 195 of a damaged, standing roadblock.');return false;}gate.hp=Math.min(gate.maxHp,gate.hp+150);this.fxText(gate,'PATCHED','#a8cfb3');}
+  u.ability=ABILITIES[u.role][2];this.log(u.name+': '+ABILITIES[u.role][0]+'.');return true;
+ }
+ tick(dt){
+  if(this.paused||!['prep','battle'].includes(this.state))return;dt=Math.min(.05,dt);this.time+=dt;this.effects.forEach(e=>e.t-=dt);this.effects=this.effects.filter(e=>e.t>0);
+  if(this.state==='battle'){this.waveTime+=dt;const due=this.pending.filter(p=>p.at<=this.waveTime);this.pending=this.pending.filter(p=>p.at>this.waveTime);due.forEach(p=>this.spawn(p.type,p.lane));}
+  for(const u of this.units){if(u.hp<=0)continue;u.cool-=dt;u.ability=Math.max(0,u.ability-dt);u.guard=Math.max(0,u.guard-dt);u.poison=Math.max(0,u.poison-dt);if(u.poison>0&&this.state==='battle')this.damage(u,3*dt,null,'poison');
+   let target=this.chooseTarget(u);
+   if(u.order?.type==='attack'){const e=this.enemies.find(e=>e.id===u.order.target&&e.hp>0);if(!e){u.order=null;u.path=[];}else if(!target){u.repath-=dt;if(u.repath<=0){u.path=this.findPath(u,e);u.repath=.8;}}}
+   if(target&&['attack','attackMove'].includes(u.order?.type))u.moving=false;else this.move(u,dt);
+   if(!u.path.length&&u.order?.type!=='attack')u.order=null;
+   if(u.moving){u.aim=0;u.streak=0;}else u.aim+=dt;
+   if(this.state==='battle'){
+    if(u.role==='medic')this.heal(u);else this.attack(u,target);
+    if(u.role==='engineer'&&this.supplies>0){const g=this.gates.find(g=>g.hp>0&&g.hp<g.maxHp&&dist(g,u)<(u.skill==='remote'?195:115));if(g){g.hp=Math.min(g.maxHp,g.hp+(u.skill==='weld'?14:7)*dt);u.repairClock+=dt;if(u.repairClock>=5){u.repairClock-=5;this.supplies--;}}}
+   }
+  }
+  for(const cache of this.caches){if(cache.collected)continue;const friendly=this.units.some(u=>u.hp>0&&dist(u,cache)<42),unsafe=this.enemies.some(e=>e.hp>0&&dist(e,cache)<100);if(friendly&&!unsafe){cache.progress+=dt;if(cache.progress>=7){cache.collected=true;const n=cache.value+(this.state==='battle'?15:0);this.supplies+=n;this.fxText(cache,'+'+n+' SUPPLIES','#dfcd9c');this.log(cache.name+' recovered: +'+n+' supplies.');this.signal++;}}}
+  if(this.state!=='battle'){this.separate();return;}
+  for(const e of this.enemies){if(e.hp<=0)continue;e.cool-=dt;e.slow=Math.max(0,e.slow-dt);e.shatter=Math.max(0,e.shatter-dt);e.stun=Math.max(0,e.stun-dt);if(e.burn>0){e.burn-=dt;this.damage(e,6*dt,null,'fire');}if(e.stun>0)continue;
+   const route=this.routes.find(r=>r.id===e.lane),gate=this.gates.find(g=>g.id===route.gate),gateNode=route.points.findIndex(p=>p.x===gate.x&&p.y===gate.y);let target=null;
+   if(gate.hp>0&&e.node<=gateNode&&dist(e,gate)<75)target=gate;
+   if(!target&&e.node>gateNode){target=this.units.filter(u=>u.hp>0&&dist(e,u)<200&&this.lineOfSight(e,u)).sort((a,b)=>dist(e,a)-dist(e,b))[0];if(!target&&dist(e,this.objective)<200)target=this.objective;}
+   if(!target)target=this.units.find(u=>u.hp>0&&dist(e,u)<45&&this.lineOfSight(e,u));
+   if(target&&dist(e,target)<=e.range+target.r&&this.lineOfSight(e,target)){
+    e.path=[];if(e.cool<=0){e.cool=e.rate;this.damage(target,e.damage*(1+this.totalCleared*.025),e,e.range>70?'ranged':'normal');if(e.type==='spitter'&&target.role)target.poison=8;this.effects.push({type:'shot',x:e.x,y:e.y,tx:target.x,ty:target.y,t:.15,max:.15,color:e.type==='spitter'?'#b597d4':'#cb8874'});}
+   }else{
+    const lanePoint=()=>{const p=route.points[Math.min(e.node,route.points.length-1)],prev=route.points[Math.max(0,e.node-1)],horizontal=Math.abs(p.x-prev.x)>Math.abs(p.y-prev.y);return this.nearestFree({x:p.x+(horizontal?0:e.laneOffset),y:p.y+(horizontal?e.laneOffset:0)});};
+    let destination=target||lanePoint();
+    if(!target&&dist(e,destination)<22){if(e.node<route.points.length-1)e.node++;else target=this.objective;destination=target||lanePoint();}
+    e.repath-=dt;if(e.repath<=0||!e.path.length){e.path=this.findPath(e,destination);e.repath=.9;}
+    const boost=this.enemies.some(h=>h.type==='screamer'&&h.hp>0&&dist(e,h)<140)?1.2:1;this.move(e,dt*boost);
+   }
+   if(e.type==='boss'){e.slam-=dt;if(e.slam<=0){const t=this.units.filter(u=>u.hp>0).sort((a,b)=>dist(a,e)-dist(b,e))[0];if(t&&dist(t,e)<260){this.hazards.push({x:t.x,y:t.y,r:72,t:2.8,max:2.8});this.log('Ground strike incoming. Move out of the red circle!');}e.slam=13;}}
+  }
+  for(const p of this.projectiles){p.t-=dt;if(p.t<=0){this.enemies.filter(e=>e.hp>0&&Math.hypot(e.x-p.tx,e.y-p.ty)<p.radius).forEach(e=>{if(p.shatter)e.shatter=5;this.damage(e,p.damage,p.source,'blast');});this.effects.push({type:'pulse',x:p.tx,y:p.ty,r:p.radius,t:.45,max:.45,color:'#edb779'});}}this.projectiles=this.projectiles.filter(p=>p.t>0);
+  for(const f of this.fields){f.t-=dt;this.enemies.filter(e=>e.hp>0&&dist(e,f)<f.r).forEach(e=>{this.damage(e,12*dt,f.source,'fire');e.slow=Math.max(e.slow,.2);});}this.fields=this.fields.filter(f=>f.t>0);
+  for(const h of this.hazards){h.t-=dt;if(h.t<=0){this.units.filter(u=>dist(u,h)<h.r).forEach(u=>this.damage(u,95,null,'blast'));this.effects.push({type:'pulse',x:h.x,y:h.y,r:h.r,t:.7,max:.7,color:'#ed9077'});}}this.hazards=this.hazards.filter(h=>h.t>0);
+  this.units=this.units.filter(u=>u.hp>0);this.enemies=this.enemies.filter(e=>e.hp>0);this.separate();
+  if(this.objective.hp<=0||!this.units.length){this.state='lost';this.log(this.objective.hp<=0?'The shelter was overrun. Use the roadblocks to buy time for your squad.':'The squad was lost. Protect your specialists and retreat before the line collapses.');this.signal++;return;}
+  if(!this.enemies.length&&!this.pending.length)this.completeWave();
+ }
+ completeWave(){
+  this.totalCleared++;this.supplies+=35+this.district*5;this.hazards=[];this.projectiles=[];this.fields=[];this.units.forEach(u=>{u.poison=0;u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.15);u.ability=0;u.path=[];u.order=null;});
+  if(this.runMode==='campaign'&&this.totalCleared>=9){this.state='won';this.log('The last boats leave the terminal. Your survivors made the evacuation possible.');}
+  else{this.state='reward';this.offers=this.makeOffers();this.log('The street is quiet. Choose one shipment; supplies can also fund repairs and training.');}this.signal++;
+ }
+ makeOffers(){
+  const offers=[{id:'supply',title:'Supply shipment',desc:'+45 supplies for recruits, roadblocks or training.'},{id:'recovery',title:'Field recovery',desc:'Restore 55% of every survivor’s health and 250 shelter health.'}];
+  const candidates=this.units.filter(u=>!u.skill),u=candidates.length?candidates[Math.floor(this.random()*candidates.length)]:null;
+  if(u){const choice=SPECS[u.role][Math.floor(this.random()*2)];offers.push({id:'skill:'+u.id+':'+choice[0],title:u.name+': '+choice[1],desc:choice[2]+' Permanent specialization for this survivor.'});}
+  else offers.push({id:'recruit:rifle',title:'Volunteer infantry',desc:'A fresh infantry survivor joins the squad (limit 12).'});
+  const m=this.units.find(u=>u.role==='medic'&&u.skill==='aura'&&!u.cleanse);
+  if(m)offers.push({id:'cleanse:'+m.id,title:'Medic: toxin training',desc:'Healing pulses and emergency treatment now remove poison.'});
+  else offers.push({id:'recruit:engineer',title:'Engineer volunteer',desc:'Adds a mobile repair specialist with a pistol (limit 12).'});
+  return offers;
+ }
+ applyUpgrade(id){
+  if(this.state!=='reward'||!this.offers.some(o=>o.id===id))return false;
+  if(id==='supply')this.supplies+=45;
+  if(id==='recovery'){this.units.forEach(u=>u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.55));this.objective.hp=Math.min(this.objective.maxHp,this.objective.hp+250);}
+  if(id.startsWith('skill:')){const[,uid,skill]=id.split(':');this.setSkill(Number(uid),skill);}
+  if(id.startsWith('cleanse:')){const u=this.units.find(u=>u.id===Number(id.split(':')[1]));if(u)u.cleanse=true;}
+  if(id.startsWith('recruit:')){if(this.units.length<12)this.recruitUnit(id.split(':')[1],this.objective.x-25,this.objective.y+45);else this.supplies+=35;}
+  if(this.localWave===3)this.state='district';else{this.state='prep';this.preview=this.forecast();}this.signal++;return true;
+ }
+ nextDistrict(){if(this.state!=='district')return false;this.units.forEach(u=>u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.35));this.loadDistrict(this.district+1);this.selectAll();return true;}
+ setSkill(id,skill){const u=this.units.find(u=>u.id===id);if(!u||u.skill||!SPECS[u.role].some(s=>s[0]===skill))return false;u.skill=skill;if(skill==='mobile')u.speed+=15;return true;}
+ buy(action,id){
+  if(this.state!=='prep')return false;let cost=0,ok=false;
+  if(action==='recruit'){cost=id==='engineer'?45:55;if(this.units.length<12&&[...Object.keys(ROLES),'engineer'].includes(id)&&this.supplies>=cost){this.recruitUnit(id,this.objective.x-15,this.objective.y+45);ok=true;}}
+  if(action==='repair'){cost=12;const gate=this.gates.find(g=>g.id===id);if(gate&&gate.hp<gate.maxHp&&this.supplies>=cost){gate.hp=gate.maxHp;ok=true;}}
+  if(action==='heal'){cost=20;if(this.supplies>=cost&&this.units.some(u=>u.hp<u.maxHp)){this.units.forEach(u=>u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.5));ok=true;}}
+  if(action==='base'){cost=25;if(this.supplies>=cost&&this.objective.hp<this.objective.maxHp){this.objective.hp=Math.min(this.objective.maxHp,this.objective.hp+350);ok=true;}}
+  if(action==='skill'){cost=35;const[uid,skill]=id.split(':');if(this.supplies>=cost)ok=this.setSkill(Number(uid),skill);}
+  if(action==='cleanse'){cost=30;const u=this.units.find(u=>u.id===Number(id)&&u.role==='medic');if(u&&!u.cleanse&&u.skill&&this.supplies>=cost){u.cleanse=true;ok=true;}}
+  if(ok){this.supplies-=cost;this.signal++;this.log('Supplies spent: '+cost+'. Prepare the squad, then begin when ready.');}return ok;
+ }
+ snapshot(){const keys=['runMode','difficulty','seed','supplies','totalCleared','district','localWave','wave','uid','time','kills','dead','formation','units','gates','objective','caches','state','offers','feed','message'];let data={version:2};keys.forEach(k=>data[k]=copy(this[k]??null));data.units.forEach(u=>{u.path=[];u.order=null;});return data;}
+ static restore(data){
+  if(!data||data.version!==2||!['prep','reward','district','won'].includes(data.state)||!Array.isArray(data.units)||data.units.length>12||!Number.isFinite(data.supplies)||!MAPS[data.district])throw Error('This save cannot be loaded.');
+  const g=new CityGame(data.runMode,data.seed,data.difficulty);g.loadDistrict(data.district);for(const k of ['runMode','difficulty','seed','supplies','totalCleared','district','localWave','wave','uid','time','kills','dead','formation','units','gates','objective','caches','state','offers','feed','message'])if(data[k]!==null)g[k]=copy(data[k]);g.preview=g.forecast();g.selectAll();return g;
+ }
+}
+const api={CityGame,MAPS,TYPES,SPECS,ABILITIES,W,H,dist,ROLES};if(typeof module!=='undefined')module.exports=api;root.CityDefense=api;
+})(typeof window!=='undefined'?window:globalThis);
+
+</script><script>
+(function(){
+'use strict';
+const {CityGame,MAPS,TYPES,SPECS,ABILITIES,W,H,dist,ROLES}=CityDefense;
+const $=id=>document.getElementById(id),canvas=$('field'),ctx=canvas.getContext('2d');
+let game=null,speed=1,drag=null,command=null,mouse={x:-1,y:-1},last=performance.now(),clock=0,saveClock=0,overlay='',help=false,previousPause=false,rosterKey='',shopKey='',forecastKey='',storageOK=true;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function read(key){try{return JSON.parse(localStorage.getItem(key)||'null');}catch{return null;}}
+function save(){if(!game||!['prep','reward','district','won'].includes(game.state))return;try{localStorage.setItem('city-siege-v2-'+game.runMode,JSON.stringify(game.snapshot()));$('saveStatus').textContent='Checkpoint saved on this browser. Battles resume from preparation.';}catch{storageOK=false;$('saveStatus').textContent='Browser storage unavailable. Keep this tab open to retain your run.';}}
+function updateHome(){['campaign','endless'].forEach(m=>{const b=$(m==='campaign'?'continueCampaign':'continueEndless'),s=read('city-siege-v2-'+m);b.hidden=!s||s.state==='won';if(s&&s.state!=='won')b.textContent='Continue · '+s.totalCleared+' cleared';});const n=read('city-siege-best')||0;$('best').textContent=n?'Best endless: '+n+' assaults':'';}
+function openGame(g){game=g;speed=1;help=false;overlay='';rosterKey='';shopKey='';forecastKey='';command=null;drag=null;$('home').hidden=true;$('play').hidden=false;$('modal').hidden=true;tab('squad');ui();draw();save();canvas.focus();}
+function newRun(mode){const run=()=>openGame(new CityGame(mode,Math.floor(Math.random()*0xffffffff),$('difficulty').value));if(read('city-siege-v2-'+mode)){showModal('<span class="eyebrow">New operation</span><h2 id="modalTitle">Replace this checkpoint?</h2><p>Your existing '+mode+' run will be replaced. Your other mode is kept.</p><div class="dialog-actions"><button class="primary" id="confirmNew">Start new run</button><button id="cancelNew">Keep current run</button></div>');$('confirmNew').onclick=run;$('cancelNew').onclick=closeModal;}else run();}
+function resume(mode){try{openGame(CityGame.restore(read('city-siege-v2-'+mode)));}catch{showModal('<h2 id="modalTitle">Checkpoint unavailable</h2><p>The saved checkpoint could not be read. You can start a new run from the command desk.</p><button id="closeError">Back</button>');$('closeError').onclick=closeModal;}}
+$('newCampaign').onclick=()=>newRun('campaign');$('newEndless').onclick=()=>newRun('endless');$('continueCampaign').onclick=()=>resume('campaign');$('continueEndless').onclick=()=>resume('endless');
+$('homeBtn').onclick=()=>{save();game=null;overlay='';closeModal();$('play').hidden=true;$('home').hidden=false;updateHome();};
+$('startBtn').onclick=()=>{save();game.startWave();forecastKey='';ui();canvas.focus();};
+function pause(){if(!game||help||!['prep','battle'].includes(game.state))return;game.paused=!game.paused;ui();}
+$('pauseBtn').onclick=pause;$('speedBtn').onclick=()=>{speed=speed===1?2:1;ui();};
+function tab(which){$('squadPanel').hidden=which!=='squad';$('shop').hidden=which!=='shop';$('squadTab').classList.toggle('active',which==='squad');$('supplyTab').classList.toggle('active',which==='shop');shopKey='';if(game)ui();}
+$('squadTab').onclick=()=>tab('squad');$('supplyTab').onclick=()=>tab('shop');
+$('allBtn').onclick=()=>{game.selectAll();ui();};$('holdBtn').onclick=()=>{game.hold();ui();};$('moveBtn').onclick=()=>setCommand('move');$('attackBtn').onclick=()=>setCommand('attackMove');
+$('formationBtn').onclick=()=>{game.formation=game.formation==='block'?'line':'block';ui();};
+function ability(){const u=game?.selection()[0];if(u){game.ability(u.id);ui();}}
+$('abilityBtn').onclick=ability;
+function setCommand(c){command=c;$('cursor').textContent=c==='attackMove'?'Click to advance and engage':c==='move'?'Click a destination':'Select a unit';canvas.style.cursor=c?'crosshair':'default';$('attackBtn').classList.toggle('active',c==='attackMove');$('moveBtn').classList.toggle('active',c==='move');}
+function point(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height};}
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('pointerdown',e=>{if(!game||!['prep','battle'].includes(game.state)||help)return;canvas.focus();const p=point(e);if(e.button===2){e.preventDefault();const target=game.enemies.find(x=>dist(x,p)<x.r+8);game.command(p,target?'attack':'move',target);setCommand(null);ui();return;}if(e.button!==0)return;if(command){game.command(p,command);setCommand(null);return;}drag={start:p,end:p,shift:e.shiftKey};canvas.setPointerCapture(e.pointerId);});
+canvas.addEventListener('pointermove',e=>{mouse=point(e);if(drag)drag.end=mouse;});
+canvas.addEventListener('pointerup',e=>{if(!drag||!game)return;const p=point(e);if(!drag.shift)game.selected.clear();if(dist(p,drag.start)<8){const u=game.units.find(u=>dist(u,p)<19);if(u){if(drag.shift&&game.selected.has(u.id))game.selected.delete(u.id);else game.selected.add(u.id);}}else{const x=Math.min(p.x,drag.start.x),y=Math.min(p.y,drag.start.y),w=Math.abs(p.x-drag.start.x),h=Math.abs(p.y-drag.start.y);game.units.filter(u=>u.x>=x&&u.x<=x+w&&u.y>=y&&u.y<=y+h).forEach(u=>game.selected.add(u.id));}drag=null;ui();});
+canvas.addEventListener('pointercancel',()=>drag=null);
+window.addEventListener('keydown',e=>{if(!game||help||!$('modal').hidden||['INPUT','SELECT'].includes(e.target.tagName))return;const k=e.key.toLowerCase();if(e.code==='Space'){e.preventDefault();pause();}else if(k==='a'&&e.ctrlKey){e.preventDefault();game.selectAll();}else if(k==='a')setCommand('attackMove');else if(k==='h')game.hold();else if(k==='q')ability();else if(k==='escape'){setCommand(null);game.selected.clear();}else if(/^[1-7]$/.test(k)){const role=[...Object.keys(ROLES),'engineer'][Number(k)-1];game.selected=new Set(game.units.filter(u=>u.role===role).map(u=>u.id));}ui();});
+function showModal(html){$('dialog').innerHTML=html;$('modal').hidden=false;$('dialog').querySelector('button')?.focus();}
+function closeModal(){$('modal').hidden=true;}
+function fieldManual(){previousPause=game.paused;game.paused=true;help=true;showModal(`<span class="eyebrow">Field manual</span><h2 id="modalTitle">Time to make a plan.</h2><p>Every survivor can move. There is no preparation countdown. Read the forecast, place your squad, and begin when ready. During combat, <kbd>Space</kbd> pauses while you issue orders.</p><div class="help-grid"><div><h3>Command</h3><p>Click or drag to select. Shift adds units. Right-click ground to move; right-click an enemy to focus. <kbd>A</kbd> then click advances until an enemy is in range. <kbd>H</kbd> holds. <kbd>Ctrl+A</kbd> selects everyone. <kbd>1–7</kbd> select roles. Line formation changes your next group move. <kbd>Q</kbd> uses the first selected survivor’s ability.</p></div><div><h3>Streets & roadblocks</h3><p>Coloured arrows mark incoming roads. Zombies must break their route’s barricade. Friendly units use its access gap. Buildings and solid wrecks block movement and direct fire. Green areas around wrecks halve incoming ranged damage; they do not stop bites. Retreat before a barrier falls.</p></div><div><h3>Recovery & supplies</h3><p>Stand beside a supply crate for 7 uncontested seconds. Collect during an assault for 15 extra supplies. Between assaults, buy roadblock repairs, healing, new units or specializations. Engineers repair nearby standing roadblocks during battle, using 1 supply per 5 seconds of work.</p></div><div><h3>Make a squad</h3><p>Gunners slow crowds; flamers and grenadiers punish clusters. Snipers stop to aim and do only 25% damage if an enemy is within 95. Medics cannot shoot. Choose one of two permanent specializations for each survivor. Toxin training can then extend either medic specialization.</p></div></div><p>Boss attacks mark the ground in red for 2.8 seconds. Leave the circle. Preparation and reward checkpoints save on this browser; an interrupted assault restarts from preparation. Multiplayer is not included.</p><button class="primary" id="closeHelp">Back to the streets</button>`);$('closeHelp').onclick=()=>{help=false;game.paused=previousPause;closeModal();ui();canvas.focus();};ui();}
+$('helpBtn').onclick=fieldManual;
+function ui(){if(!game)return;const g=game,prep=g.state==='prep';$('title').textContent=g.map.name;$('phase').textContent=prep?`PREPARE · ${g.totalCleared+1}${g.runMode==='campaign'?'/9':''}`:`${g.state==='battle'?'ASSAULT':g.state.toUpperCase()} ${g.wave}${g.runMode==='campaign'?'/9':''}`;$('integrity').textContent=Math.max(0,Math.ceil(g.objective.hp))+' / '+g.objective.maxHp;$('supplies').textContent=g.supplies;$('contacts').textContent=g.enemies.length+' active · '+g.pending.length+' inbound';$('squadCount').textContent=g.units.length+' survivors · '+g.kills+' kills';$('notice').textContent=g.message;$('startBtn').hidden=!prep;$('startBtn').textContent='Begin assault '+(g.totalCleared+1);$('pauseBtn').textContent=g.paused?'Resume [Space]':'Pause [Space]';$('pauseBanner').hidden=!g.paused||help;$('speedBtn').textContent=speed+'× speed';$('formationBtn').textContent='Formation: '+g.formation;
+ const selected=g.selection();$('abilityBtn').disabled=g.state!=='battle'||!selected.length||selected[0].ability>0;
+ const rk=g.units.map(u=>[u.id,Math.ceil(u.hp),g.selected.has(u.id),u.skill,u.poison>0,u.rank].join(':')).join('|');
+ if(rk!==rosterKey){rosterKey=rk;$('roster').innerHTML=g.units.map(u=>`<button class="unit ${g.selected.has(u.id)?'active':''}" data-unit="${u.id}" aria-pressed="${g.selected.has(u.id)}" aria-label="${esc(u.name)} ${u.id}, ${Math.ceil(u.hp)} health"><b>${u.mark}</b><span>${u.name}${u.poison>0?' ☣':''}<small>${Math.ceil(u.hp)} HP · rank ${u.rank}</small></span><i><span style="width:${u.hp/u.maxHp*100}%"></span></i></button>`).join('');}
+ if(selected.length===1){const u=selected[0],spec=SPECS[u.role].find(s=>s[0]===u.skill),a=ABILITIES[u.role];$('details').innerHTML=`<strong>${u.name} <span class="badge">${u.mark}${u.id}</span></strong>${esc(u.note)}${spec?`<p class="special">${spec[1]} · ${spec[2]}</p>`:'<p class="special">Choose a specialization in Supplies & training.</p>'}${u.cleanse?'<span class="special">Toxin treatment trained.</span>':''}${u.role==='sniper'&&g.enemies.some(e=>dist(e,u)<95)?'<p style="color:#e79982">Close pressure: 25% shot damage.</p>':''}<button data-ability="${u.id}" ${g.state!=='battle'||u.ability>0?'disabled':''}>${a[0]} ${u.ability>0?'· '+Math.ceil(u.ability)+'s':'[Q]'}</button><small>${a[1]}</small>`;}else $('details').innerHTML=`<strong>${selected.length} survivors selected</strong>${selected.length?'Right-click a destination to move the group. Choose line formation for a wider firing line. Select one survivor to inspect their skill and ability.':'Select a survivor on the map or from this roster.'}<p class="special">Hold the front with infantry. Keep your medic and sniper behind them.</p>`;
+ updateShop();updateForecast();
+ if(help)return;const stateKey=g.state+':'+g.totalCleared;if(stateKey===overlay)return;overlay=stateKey;
+ if(g.state==='reward'){save();showModal(`<span class="eyebrow">Assault ${g.totalCleared} survived · +${35+g.district*5} supplies</span><h2 id="modalTitle">A moment to recover.</h2><p>All survivors recovered 15% health. Choose one shipment. Their training and your supplies carry forward.</p><div class="reward-grid">${g.offers.map(o=>`<button class="reward" data-reward="${o.id}"><strong>${esc(o.title)}</strong><span>${esc(o.desc)}</span></button>`).join('')}</div><p>${g.localWave===3?'Next: '+MAPS[(g.district+1)%3].name+'.':'Then reposition, repair or train before starting the next assault.'}</p>`);}
+ else if(g.state==='district'){save();showModal(`<span class="eyebrow">District secured</span><h2 id="modalTitle">Move to ${MAPS[(g.district+1)%3].name}.</h2><p>${MAPS[(g.district+1)%3].story}</p><p>${g.units.length} survivors move with you. They recover 35% health during transit. Your supplies and their specializations carry over; the new shelter and roadblocks start intact.</p><button class="primary" id="nextDistrict">Move to the next district</button>`);$('nextDistrict').onclick=()=>{g.nextDistrict();forecastKey='';ui();save();};}
+ else if(['won','lost'].includes(g.state)){if(g.state==='won')save();if(g.runMode==='endless')try{localStorage.setItem('city-siege-best',JSON.stringify(Math.max(read('city-siege-best')||0,g.totalCleared)));}catch{}showModal(`<span class="eyebrow">${g.runMode==='campaign'?'Evacuation campaign':'Endless watch'}</span><h2 id="modalTitle">${g.state==='won'?'The last boats made it.':'The line broke.'}</h2><p>${g.message}</p><p>${g.totalCleared} assaults survived · ${g.kills} infected stopped · ${g.units.length} survivors · ${g.dead} lost.</p><div class="dialog-actions">${g.state==='lost'?'<button class="primary" id="retryCheckpoint">Retry last checkpoint</button>':''}<button id="backHome">Command desk</button></div>`);if(g.state==='lost')$('retryCheckpoint').onclick=()=>resume(g.runMode);$('backHome').onclick=()=>$('homeBtn').click();}
+ else closeModal();
+}
+$('roster').onclick=e=>{const b=e.target.closest('[data-unit]');if(!b||!game)return;const id=Number(b.dataset.unit);if(!e.shiftKey)game.selected.clear();game.selected.add(id);ui();};
+$('details').onclick=e=>{const b=e.target.closest('[data-ability]');if(b){game.ability(Number(b.dataset.ability));ui();}};
+$('dialog').onclick=e=>{const b=e.target.closest('[data-reward]');if(b){game.applyUpgrade(b.dataset.reward);ui();save();}};
+function updateShop(){const g=game,u=g.selection()[0],sig=[g.state,g.supplies,g.signal,u?.id,u?.skill,u?.cleanse,g.units.length,g.gates.map(x=>Math.ceil(x.hp/20)).join(',')].join('|');if(sig===shopKey)return;shopKey=sig;const prep=g.state==='prep';const buy=(action,id,title,desc,cost,ok=true)=>`<button data-buy="${action}" data-id="${id}" ${!prep||g.supplies<cost||!ok?'disabled':''}>${title} <b>· ${cost}</b>${desc?'<small>'+desc+'</small>':''}</button>`;
+ $('shop').innerHTML=`<p>${prep?'Spend supplies, then start when ready. Select a survivor in the Squad tab to choose their training.':'Purchases reopen between assaults. Engineers can still repair nearby standing roadblocks.'}</p><h3>Recovery</h3>${g.gates.map(x=>buy('repair',x.id,x.name,Math.max(0,Math.ceil(x.hp))+'/'+x.maxHp+' integrity · fully repair or rebuild',12,x.hp<x.maxHp)).join('')}${buy('heal','','Treat the squad','Restore 50% of maximum health to each survivor',20,g.units.some(u=>u.hp<u.maxHp))}${buy('base','','Repair shelter','Restore 350 integrity',25,g.objective.hp<g.objective.maxHp)}<h3>${u?'Train '+u.name:'Select a survivor to train'}</h3>${u?(u.skill?`<p class="tip">${SPECS[u.role].find(s=>s[0]===u.skill)?.[1]||''} selected. Specializations are permanent.</p>`:SPECS[u.role].map(s=>buy('skill',u.id+':'+s[0],s[1],s[2],35)).join(''))+(u.role==='medic'&&u.skill?buy('cleanse',u.id,'Toxin training','Healing also removes poison.',30,!u.cleanse):''):''}<h3>Reinforcements · ${g.units.length}/12</h3>${[...Object.keys(ROLES),'engineer'].map(r=>buy('recruit',r,r==='engineer'?'Engineer':ROLES[r].name,'',r==='engineer'?45:55,g.units.length<12)).join('')}`;
+}
+$('shop').onclick=e=>{const b=e.target.closest('[data-buy]');if(b&&game.buy(b.dataset.buy,b.dataset.id)){save();ui();}};
+function updateForecast(){const g=game,p=g.preview,key=g.state+':'+p.number+':'+Math.floor(g.waveTime||0);if(key===forecastKey)return;forecastKey=key;const active=p.active.map(id=>g.routes.find(r=>r.id===id));$('forecast').innerHTML=`<div class="forecast-head"><h3>${g.state==='prep'?'NEXT ASSAULT / INTELLIGENCE':'ROAD WATCH'}</h3><span class="badge">${g.state==='battle'?Math.floor(g.waveTime)+'s elapsed':p.count+(p.boss?1:0)+' infected expected'}</span></div><p>${p.description}</p><div class="lane-list">${active.map(r=>`<span class="lane-chip" style="border-left-color:${r.color}">${r.name}</span>`).join('')}</div><div class="enemy-guide">${[...p.types,...(p.boss?['boss']:[])].map(t=>`<span title="${TYPES[t].tip}">${TYPES[t].mark} · ${TYPES[t].label}</span>`).join('')}</div><div class="timeline">${p.groups.map((t,i)=>`<span>${g.state==='battle'&&g.waveTime>=t?'✓ ':''}Group ${i+1} · ${t}s</span>`).join('')}</div><p style="margin-bottom:0">${g.state==='prep'?'Move a unit to a supply crate to scavenge. No attack begins until you choose.':'Roads remain visible. A fallen barrier opens a route to your shelter.'}</p>`;}
+function rect(x,y,w,h,fill,stroke){ctx.fillStyle=fill;ctx.fillRect(x,y,w,h);if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.strokeRect(x,y,w,h);}}
+function line(x,y,a,b,color,width=1){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(a,b);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke();}
+function circle(x,y,r,fill,stroke,width=1){ctx.beginPath();ctx.arc(x,y,Math.max(0,r),0,Math.PI*2);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.stroke();}}
+function text(s,x,y,color='#b8c0b5',size=11,align='center'){ctx.fillStyle=color;ctx.font=`${size}px Segoe UI, sans-serif`;ctx.textAlign=align;ctx.fillText(s,x,y);}
+function hp(u,w=26){rect(u.x-w/2,u.y-u.r-10,w,3,'#322a2a');rect(u.x-w/2,u.y-u.r-10,w*Math.max(0,u.hp/u.maxHp),3,u.hp/u.maxHp<.3?'#de9479':'#a9bd98');}
+function draw(){if(!game)return;const g=game;ctx.clearRect(0,0,W,H);rect(0,0,W,H,'#303b3e');
+ for(let x=0;x<W;x+=30)for(let y=0;y<H;y+=30){if((x*7+y*11)%90===0)rect(x+2,y+2,26,26,'#ffffff03');}
+ for(const r of g.map.roads){rect(r.x-9,r.y-9,r.w+18,r.h+18,'#69706b');rect(r.x-5,r.y-5,r.w+10,r.h+10,'#444e4e');rect(r.x,r.y,r.w,r.h,'#30373b');ctx.setLineDash([15,18]);if(r.w>r.h)line(r.x,r.y+r.h/2,r.x+r.w,r.y+r.h/2,'#c4b48450',2);else line(r.x+r.w/2,r.y,r.x+r.w/2,r.y+r.h,'#c4b48450',2);ctx.setLineDash([]);}
+ for(const b of g.map.buildings){if(b.kind==='water'){rect(b.x,b.y,b.w,b.h,'#273f49');for(let y=b.y+8;y<b.y+b.h;y+=19)line(b.x+10,y,b.x+b.w-12,y,'#52778550');continue;}rect(b.x+6,b.y+8,b.w,b.h,'#111c2280');rect(b.x,b.y,b.w,b.h,'#4a5250','#787f70');rect(b.x+8,b.y+8,b.w-16,b.h-16,'#555d57','#616b60');for(let x=b.x+18;x<b.x+b.w-18;x+=35){rect(x,b.y+14,19,9,'#394a4e');rect(x,b.y+b.h-22,19,8,'#34444a');}rect(b.x+b.w-43,b.y+b.h/2-13,26,26,'#49534d','#70786a');circle(b.x+b.w-30,b.y+b.h/2,7,null,'#798274');text(b.label,b.x+b.w/2,b.y+b.h/2+4,'#c2c6b0',11);}
+ for(const c of g.map.cars){rect(c.x-37,c.y-37,c.w+74,c.h+74,'#95ba910c');ctx.setLineDash([3,7]);ctx.strokeStyle='#9cb39438';ctx.strokeRect(c.x-37,c.y-37,c.w+74,c.h+74);ctx.setLineDash([]);car(c.x,c.y,c.w,c.h,'#766c56');}
+ for(const route of g.routes){const active=g.preview.active.includes(route.id);ctx.setLineDash([6,11]);for(let i=1;i<route.points.length;i++)line(route.points[i-1].x,route.points[i-1].y,route.points[i].x,route.points[i].y,active?route.color+'60':'#8f9b9d16',2);ctx.setLineDash([]);const p=route.points[0],next=route.points[1],a=Math.atan2(next.y-p.y,next.x-p.x);ctx.save();ctx.translate(p.x,p.y);ctx.rotate(a);ctx.beginPath();ctx.moveTo(-6,-9);ctx.lineTo(9,0);ctx.lineTo(-6,9);ctx.strokeStyle=active?route.color:'#65716d';ctx.lineWidth=3;ctx.stroke();ctx.restore();const x=Math.max(92,Math.min(W-95,p.x)),y=p.y<45?52:p.y-24;text(route.name.toUpperCase(),x,y,active?route.color:'#7f9089',10);}
+ for(const gate of g.gates){ctx.save();ctx.translate(gate.x,gate.y);if(gate.vertical)ctx.rotate(Math.PI/2);if(gate.hp>0){car(-50,-13,42,26,'#8c785d');car(9,-13,42,26,'#6a786d');line(-53,19,53,19,'#cbb87a',4);for(let x=-46;x<52;x+=15)line(x,16,x+9,22,'#44483e',3);}else{rect(-50,-9,40,19,'#373b37');rect(9,-7,41,16,'#393b36');line(-45,-12,44,15,'#916e59',2);}ctx.restore();hp({...gate,r:30},68);if(gate.hp<=0)text('BREACH',gate.x,gate.y-44,'#e3a183',10);}
+ for(const cache of g.caches){if(cache.collected){text('SALVAGED',cache.x,cache.y+5,'#7c9484',9);continue;}circle(cache.x,cache.y,42,'#dbbb7408','#d3b97d55');rect(cache.x-12,cache.y-10,24,20,'#6b634a','#d2b779');line(cache.x-12,cache.y,cache.x+12,cache.y,'#ba9e63');text('+'+cache.value,cache.x,cache.y+26,'#e0c18b',10);if(cache.progress>0){ctx.beginPath();ctx.arc(cache.x,cache.y,21,-Math.PI/2,-Math.PI/2+Math.PI*2*cache.progress/7);ctx.strokeStyle='#ecdaa4';ctx.lineWidth=3;ctx.stroke();}}
+ const base=g.objective;rect(base.x-38,base.y-30,76,60,'#213b3e','#b3baa1');rect(base.x-31,base.y-23,62,46,'#59756c');rect(base.x-9,base.y-16,18,31,'#b9c2a4');rect(base.x-17,base.y-7,34,12,'#b9c2a4');text('SHELTER',base.x,base.y+50,'#dae1c7',11);hp(base,76);
+ for(const f of g.fields){circle(f.x,f.y,f.r,'#d67e3635','#e3aa68');for(let i=0;i<8;i++){const a=i*.8+g.time;circle(f.x+Math.cos(a)*f.r*.6,f.y+Math.sin(a)*f.r*.5,7+Math.sin(g.time*5+i)*3,'#ecad6650');}}
+ for(const h of g.hazards){circle(h.x,h.y,h.r,'#e2796430','#f2a38a',2);circle(h.x,h.y,h.r*(1-h.t/h.max),'#e9826350');text('MOVE · '+h.t.toFixed(1),h.x,h.y,'#fff0d8',12);}
+ const selected=g.selection();for(const u of selected){if(selected.length===1)circle(u.x,u.y,u.range+(u.skill==='reach'?45:0),'#cce5c006','#b6c7b128');if(u.path.length){ctx.setLineDash([3,6]);let from=u;for(const to of u.path){line(from.x,from.y,to.x,to.y,'#d4d4a855');from=to;}ctx.setLineDash([]);circle(from.x,from.y,5,null,'#e2d6a0');}}
+ for(const u of [...g.units,...g.enemies].sort((a,b)=>a.y-b.y)){circle(u.x+3,u.y+4,u.r+2,'#101b1f70');if(u.role){if(g.selected.has(u.id))circle(u.x,u.y,u.r+6,null,'#e3d39c',2);if(u.guard>0)circle(u.x,u.y,u.r+9,null,'#d9ca8b');if(u.role==='medic'&&u.skill==='aura')circle(u.x,u.y,u.range,null,'#89d1b019');circle(u.x,u.y,u.r,'#425e63',u.color,1.5);line(u.x,u.y,u.x+Math.cos(u.angle)*(u.r+9),u.y+Math.sin(u.angle)*(u.r+9),'#c5c6ad',3);circle(u.x-1,u.y-2,4,'#a8ac93');text(u.mark,u.x,u.y+5,'#ffffea',10);if(u.poison>0)circle(u.x,u.y,u.r+3,null,'#c9a7e9');}else{ctx.save();ctx.translate(u.x,u.y);ctx.rotate(Math.sin(g.time*4+u.id)*.12);ctx.fillStyle=u.color;ctx.beginPath();ctx.ellipse(0,0,u.r*.8,u.r,0,0,Math.PI*2);ctx.fill();line(-u.r+1,-2,-u.r-3,7,u.color,3);line(u.r-1,-2,u.r+3,7,u.color,3);circle(0,-u.r*.28,u.r*.36,'#c2b590');if(u.armor&&u.shatter<=0)circle(0,0,u.r+1,null,'#d3bda1',2);ctx.restore();if(u.slow>0)circle(u.x,u.y,u.r+3,null,'#8fbdc7');if(u.stun>0)text('✦',u.x,u.y-u.r-14,'#f4dda0',13);if(u.burn>0)circle(u.x,u.y,u.r+2,null,'#e6ad76');if(u.type==='boss'||u.type==='spitter'||u.type==='screamer')text(u.mark,u.x,u.y+5,'#241f20',12);}hp(u,u.role?25:u.r*2);}
+ for(const p of g.projectiles){const k=1-p.t/p.max;circle(p.x+(p.tx-p.x)*k,p.y+(p.ty-p.y)*k-Math.sin(k*Math.PI)*32,3,'#efd6a0');}
+ for(const e of g.effects){ctx.globalAlpha=Math.min(1,e.t/e.max*2);if(e.type==='shot')line(e.x,e.y,e.tx,e.ty,e.color,2);if(e.type==='pulse')circle(e.x,e.y,e.r*(1-e.t/e.max),null,e.color,3);if(e.type==='order')circle(e.x,e.y,9+20*(1-e.t/e.max),null,e.color);if(e.type==='text')text(e.text,e.x,e.y-20*(1-e.t/e.max),e.color,11);if(e.type==='flame'){ctx.beginPath();ctx.moveTo(e.x,e.y);ctx.arc(e.x,e.y,e.r,e.angle-.6,e.angle+.6);ctx.closePath();ctx.fillStyle='#eea461';ctx.globalAlpha*=.22;ctx.fill();}ctx.globalAlpha=1;}
+ if(drag){const x=Math.min(drag.start.x,drag.end.x),y=Math.min(drag.start.y,drag.end.y),w=Math.abs(drag.end.x-drag.start.x),h=Math.abs(drag.end.y-drag.start.y);rect(x,y,w,h,'#bbd4a922','#d6deb8');}
+ const hover=g.enemies.find(e=>dist(e,mouse)<e.r+8)||g.caches.find(c=>!c.collected&&dist(c,mouse)<42)||g.gates.find(x=>dist(x,mouse)<36);if(hover){const s=hover.type?hover.label+' · '+Math.ceil(hover.hp)+' HP':hover.name+(hover.progress!==undefined?' · stand here 7 seconds':' · '+Math.max(0,Math.ceil(hover.hp))+' HP'),x=Math.max(155,Math.min(W-155,hover.x)),y=Math.max(80,hover.y-45);rect(x-150,y-17,300,25,'#142126eb','#657367');text(s,x,y,'#e0d3b2',11);}
+ if(g.state==='prep'){rect(W/2-155,12,310,27,'#1b2729dd','#7b826b');text('PREPARATION · BEGIN WHEN READY',W/2,30,'#e0d3b0',11);}
+}
+function car(x,y,w,h,color){rect(x+3,y+4,w,h,'#162027a0');rect(x,y,w,h,color,'#96967b');if(w>h){rect(x+10,y+3,14,h-6,'#31434a');rect(x+w-22,y+3,12,h-6,'#35474b');rect(x+7,y-3,12,4,'#222b2e');rect(x+w-19,y+h-1,12,4,'#222b2e');}else{rect(x+3,y+10,w-6,14,'#34454a');rect(x+3,y+h-22,w-6,12,'#35474b');}line(x+4,y+3,x+w-5,y+h-4,'#b5a68b66');}
+function frame(now){const dt=Math.min((now-last)/1000,.08);last=now;if(game){const before=game.signal;for(let i=0;i<speed;i++){game.tick(dt/2);game.tick(dt/2);}clock+=dt;saveClock+=dt;if(clock>.15){ui();clock=0;}if(before!==game.signal||saveClock>3){save();saveClock=0;}draw();}requestAnimationFrame(frame);}
+window.addEventListener('blur',()=>{if(game&&game.state==='battle'){game.paused=true;ui();}});document.addEventListener('visibilitychange',()=>{if(document.hidden){save();if(game&&game.state==='battle'){game.paused=true;ui();}}});
+updateHome();requestAnimationFrame(frame);
+})();
+
+</script></body></html>
