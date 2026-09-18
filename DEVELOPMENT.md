@@ -1,5 +1,11 @@
 # Last Light: City Siege — development notes
 
+## Current release: v0.3
+
+The specialist update responds to playtest feedback with useful, individually labelled rewards; bounded veteran bonuses; medic pistol fire and healing XP without self-healing; engineer repair XP; incendiary grenades; diminishing line-piercing sniper shots; reachable lookout platforms; non-stacking range and protection auras; combat-only scavenging; wider enemy pursuit; rare poison artillery; and Splitters that produce two smaller enemies. See [the complete v0.3 update](CHANGELOG.md) for numbers, controls and save compatibility.
+
+50 City Siege simulation checks and 15 checks for the four early prototypes pass. A scripted management run completed the nine-assault campaign and lost on endless assault 10. These are functional checks and preliminary balance probes, not a substitute for player feedback. Browser checks cover recruitment, aura training, range indicators, saving/resuming, and an opening assault.
+
 ## Direction
 
 Build a tactical squad survival game whose battlefield tells a story. The player should understand where danger comes from, why their defence failed, and what a different squad arrangement could achieve. Keep direct control of every unit. Make the squad the main weapon; fortifications buy time.
@@ -27,7 +33,7 @@ These are design interpretations, not claims that our game recreates the source 
 - Buildings obstruct shots and movement. Wrecks provide nearby cover; damaged vehicle barricades hold a road until destroyed. Friendly troops can pass through the barricade's access gap.
 - Every assault waits for the player. Pause supports issuing movement orders. A line formation and attack-move reduce control friction.
 - Six initial specialists plus a recruitable engineer. Each has a manual ability, a weakness and two mutually exclusive specializations. Medic group healing can be extended with toxin treatment.
-- Supplies buy repairs, recruits and unit specializations. Reward choices also offer abilities and supplies. Supply sites reward a unit that reaches and holds the location; contested sites stop progress.
+- Supplies buy repairs, recruits, specializations and support auras. Rewards offer useful training and resources. Supply sites work only during active combat after infected arrive; leaving or nearby threats reset progress.
 - Survivors, their skills and supplies carry between districts. Preparation and reward checkpoints can be resumed in the same browser. A battle resumes from its start checkpoint rather than its exact interrupted instant.
 - Boss ground attacks have a visible warning and time to move. Special enemies appear gradually.
 
@@ -36,10 +42,10 @@ These are design interpretations, not claims that our game recreates the source 
 | Unit | Job and limitation | Choices |
 |---|---|---|
 | Infantry | Durable mobile screen; moderate damage | Brace to reduce incoming damage, or improve moving fire. Rally briefly protects nearby allies. |
-| Medic | Sustain the squad; cannot attack | Group healing or stronger individual triage. Later toxin training cures poison. Emergency treatment gives a short burst of nearby healing. |
+| Medic | Sustain other survivors; weak pistol, cannot treat itself | Group healing or stronger individual triage. Later toxin training cures poison. Emergency treatment heals nearby other survivors. Gains XP from actual healing. |
 | Flamer | Clear a narrow choke; short range | Lingering burns or a longer cone. Firebreak buys space but has a cooldown. |
-| Grenadier | Break clustered enemies; weak when rushed | Wider blasts or armour-breaking shells. Concussion temporarily stalls a crowd. |
-| Sniper | Remove armoured and support enemies; poor when crowded | Armour piercing or a finishing shot specialization. Must stop to aim. |
+| Grenadier | Break clustered enemies; weak when rushed | Incendiary blast/fire zones or armour-breaking shells. Concussion temporarily stalls a crowd. |
+| Sniper | Remove armoured and support enemies; poor when crowded | Armour piercing or a finishing shot specialization. Must stop to aim. A manual line-piercing shot loses damage per target. Optional spotter aura extends allies' range. |
 | Gunner | Slow the front of a swarm; slow relocation | Sustained focus builds damage, or area suppression. Emergency suppression helps a retreat. |
 | Engineer | Keep a nearby barricade functioning; low firepower | Faster repairs or a broader repair radius. A manual patch restores a nearby damaged barricade. |
 
@@ -85,7 +91,7 @@ Aim for useful decisions every 15–30 seconds during combat, with no countdown 
 
 The implementation uses our own code, maps, unit descriptions and procedural drawings. Research informs general design principles. No franchise artwork, characters, dialogue, audio or extracted game files are included in the published game. The references are research sources, not affiliations or endorsements.
 
-## Validation for v0.2
+## Historical validation for v0.2
 
 23 automated simulation checks passed, covering road connectivity, barriers, pause, damage counters, healing and cleansing, specialist costs, engineer repair, scavenging, save roundtrips, campaign transitions and completion rules. A scripted squad-management run completed all nine campaign assaults; a separate endless run completed twelve. These are functional checks and preliminary balance probes, not a substitute for human playtesting.
 
