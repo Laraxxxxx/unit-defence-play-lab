@@ -1,6 +1,12 @@
 # Last Light: City Siege — development notes
 
-## Current release: v0.3
+## Current release: v0.3.1
+
+Scavenging now uses the actual collector's incoming threats and recent damage, removing the broad radius check around the crate. Quiet gaps after first contact allow collection; unrelated fighting and outgoing sniper fire no longer interfere. Right-button dragging previews and rotates the selected formation around the initial destination, with role-aware front/rear placement, obstacle adjustment, release to commit and Escape to cancel. Facing persists through checkpoints. 62 City Siege simulation checks pass; browser verification covers the mouse gesture and its preview.
+
+See [the current controls and changes](CHANGELOG.md).
+
+## v0.3 specialist systems
 
 The specialist update responds to playtest feedback with useful, individually labelled rewards; bounded veteran bonuses; medic pistol fire and healing XP without self-healing; engineer repair XP; incendiary grenades; diminishing line-piercing sniper shots; reachable lookout platforms; non-stacking range and protection auras; combat-only scavenging; wider enemy pursuit; rare poison artillery; and Splitters that produce two smaller enemies. See [the complete v0.3 update](CHANGELOG.md) for numbers, controls and save compatibility.
 

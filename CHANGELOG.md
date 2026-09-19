@@ -1,3 +1,39 @@
+# City Siege v0.3.1 — Formation facing and scavenging
+
+[Play City Siege](https://laraxxxxx.github.io/unit-defence-play-lab/city.html)
+
+## Turn your formation before moving
+
+1. Select the units you want to move.
+2. Press and hold the **right mouse button at the destination**.
+3. Drag towards the direction the group should face. An arrow marks the front, and ghost units show their destinations.
+4. Release to issue the move. **Escape cancels** without moving or clearing your selection.
+
+The destination stays where you first pressed. Block formation places infantry, flamers and gunners ahead of support units and snipers. Line formation rotates the whole line so everyone stands abreast. Slots shift to open ground around buildings and at map edges; shifted preview slots are amber. Units correct small nudges as they settle into position.
+
+A normal right-click still moves; right-clicking an enemy still focuses fire. Facing orders also work while paused and with individual units. Units can still turn to engage enemies after reaching the formation. The chosen facing is retained for later moves and saved checkpoints.
+
+## Scavenging checks the collector, not the neighbourhood
+
+The old 180-radius danger check around the crate has been removed. One stationary survivor now collects a crate for seven uninterrupted seconds. Only direct danger to that survivor interrupts collection:
+
+- An enemy is targeting the collector within its actual attack range and has a clear shot.
+- A poison projectile or boss warning will hit the collector's current position.
+- The collector has taken damage within the last two seconds, including poison damage.
+
+The collector shooting enemies does **not** interrupt scavenging. Enemies fighting another survivor do **not** interrupt it unless an incoming area attack also threatens the collector. If several survivors are at a crate, a safe one can collect even while another is attacked. A new collector starts their own seven-second attempt.
+
+Collection remains combat-only and unlocks after the first infected arrive. It can continue in quiet gaps between the announced attack groups. Leaving, moving, changing collectors, or finishing an assault clears partial progress. Each crate still pays once. The crate and selected collector show progress or the reason collection is stopped.
+
+## Compatibility and checks
+
+Existing saves continue to work; no squad, supplies, upgrades or rank reset is needed. Older checkpoints without formation facing use the default north-facing arrangement.
+
+62 City Siege simulation checks pass, including direct versus unrelated threats, collection during wave gaps, interrupted final collection frames, collector changes, four-direction formation rotation, paused orders, obstacle placement and saved facing. Browser checks cover the held-button preview, release, cancellation and normal movement.
+
+
+---
+
 # City Siege v0.3 — The specialist update
 
 [Play the updated game](https://laraxxxxx.github.io/unit-defence-play-lab/city.html)
