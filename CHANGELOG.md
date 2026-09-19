@@ -1,3 +1,24 @@
+# City Siege v0.3.2 — Formation movement fixes
+
+[Play City Siege](https://laraxxxxx.github.io/unit-defence-play-lab/city.html)
+
+Squads now settle into their assigned formation instead of repeatedly pushing each other off shared path waypoints.
+
+- Survivors skip unnecessary grid waypoints when the route has enough clearance for their body. Corners still route around buildings and wrecks.
+- Friendly avoidance can steer a moving unit sideways, but cannot push it backwards away from the waypoint it is trying to reach.
+- Passing allies do not shove a stationary survivor out of position. Allies may briefly overlap while passing in a tight space; enemies still make physical contact.
+- Separation uses elapsed time, fixing stronger pushing at higher screen refresh rates.
+- New formations reserve space around stationary allies and other squads' destinations. Conflicting or obstructed destinations shift to nearby open ground; amber preview markers show these adjustments.
+
+Controls are unchanged: hold right-click at the destination, drag the arrow towards the front, and release. Escape cancels. Normal right-click still moves or focuses an enemy.
+
+Existing campaign and endless checkpoints remain compatible. No balance, progression or save reset is required.
+
+70 simulation checks pass, including 108 repeated full-squad moves across all three maps in block and line formations at 20, 60 and 144 simulation ticks per second. The new checks cover sustained arrival, overlapping squad orders, passing stationary specialists, occupied destinations, enemy contact and clearance around wrecks and building corners. Browser verification also checks the formation gesture and settled positions.
+
+
+---
+
 # City Siege v0.3.1 — Formation facing and scavenging
 
 [Play City Siege](https://laraxxxxx.github.io/unit-defence-play-lab/city.html)

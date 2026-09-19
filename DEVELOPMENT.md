@@ -1,6 +1,10 @@
 # Last Light: City Siege — development notes
 
-## Current release: v0.3.1
+## Current release: v0.3.2
+
+Formation movement now skips unnecessary shared waypoints, preserves forward progress during friendly avoidance, and protects stationary allies from passing units. Separation scales with elapsed time. New destinations reserve space around other squads, and movement accounts for body clearance around buildings and wrecks. 70 simulation checks pass, including 108 full-squad formation moves across all districts and three update rates. Existing saves remain compatible.
+
+## v0.3.1 formation controls and scavenging
 
 Scavenging now uses the actual collector's incoming threats and recent damage, removing the broad radius check around the crate. Quiet gaps after first contact allow collection; unrelated fighting and outgoing sniper fire no longer interfere. Right-button dragging previews and rotates the selected formation around the initial destination, with role-aware front/rear placement, obstacle adjustment, release to commit and Escape to cancel. Facing persists through checkpoints. 62 City Siege simulation checks pass; browser verification covers the mouse gesture and its preview.
 

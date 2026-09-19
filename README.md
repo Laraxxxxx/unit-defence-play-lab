@@ -2,7 +2,7 @@
 
 [Play City Siege](https://laraxxxxx.github.io/unit-defence-play-lab/city.html) · [All experiments](https://laraxxxxx.github.io/unit-defence-play-lab/)
 
-## Last Light: City Siege — v0.3.1
+## Last Light: City Siege — v0.3.2
 
 A 2D tactical zombie survival prototype with directly controlled units. Defend a fictional city using streets, wrecks, destructible roadblocks and specialist squads.
 
@@ -15,6 +15,7 @@ A 2D tactical zombie survival prototype with directly controlled units. Defend a
 - Healing/repair experience, medic pistols without self-healing, incendiary grenades and a piercing sniper ability.
 - Reachable high ground, range/protection auras, combat-only scavenging and wider enemy pursuit.
 - Rare poison throwers, dividing infected, stronger endless waves and filtered rewards.
+- Reliable formation arrival: passing allies preserve stationary positions; separate squads reserve distinct destinations.
 - Hold right-click and drag to preview and rotate a formation, then release to move.
 - Scavenging is interrupted only by direct threats to the collector; distant or unrelated fighting does not count.
 - Existing checkpoints remain compatible. See [changes and controls](CHANGELOG.md).
